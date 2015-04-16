@@ -1,0 +1,16 @@
+extends ./includes/dashboard_template.inc.jade
+include ./includes/mixin.inc.jade
+
+prepend head
+	-var cls='body-nav-offcanvas'
+prepend footer
+	-var iframedoc=true
+	
+append meta
+	+meta-desc('Riverdale collegiate Institute Dashboard - Page Under Construction')
+append title
+	+page-title('Riverdale collegiate Institute Dashboard - Page Under Construction')
+append container
+	include ./includes/page_under_construction.inc.jade
+append footer
+	include ./includes/iframe_resize.inc.jade

@@ -1,0 +1,13 @@
+extends ./includes/template.inc.jade
+include ./includes/mixin.inc.jade
+
+append meta
+	+meta-desc('Redirect')
+append title
+	+page-title('Redirect')
+append aspb1
+	asp.
+		baseURL=request.servervariables("URL")
+		strURL=mid(baseURL,1,instrrev(baseURL,"/"))
+	
+		response.redirect(strURL&"login.asp") 

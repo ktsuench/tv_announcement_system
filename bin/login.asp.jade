@@ -1,0 +1,139 @@
+extends ./includes/template.inc.jade
+include ./includes/mixin.inc.jade
+
+prepend head
+	-var cls='body-nav-offcanvas'
+
+append meta
+	+meta-desc('Riverdale Collegiate Institute Dashboard - Login')
+append title
+	+page-title('Riverdale Collegiate Institute Dashboard - Login')
+append css
+	+stylesheet('css/signin.css')
+	style.
+		.alert-float{bottom:0px; right:10px;}
+append aspb1
+	asp.
+		if request("a")="l" then session.contents.removeall()
+	
+		dim verified, clearance
+		dim stat, referrer, errMsg
+	
+		verified=session("verified")
+	
+		if verified then
+			baseURL=request.servervariables("URL")
+			strURL=mid(baseURL,1,instrrev(baseURL,"/"))
+	
+			response.redirect(strURL&"dashboard.asp") 
+		else
+			session("verified")=false
+			stat=session("status")
+			referrer=request.servervariables("HTTP_REFERER")
+			errMsg=session("error_message")
+	
+			if isempty(stat) or isnull(stat) then stat=0
+append header
+	<!--#include file="includes/nav.inc"-->
+	<!--#include file="includes/nav_sw.inc"-->
+	<!--#include file="includes/nav_top.inc"-->
+append content
+	.site-wrap
+		.container-fluid
+			asp.
+				if session("pass_attempts") < 3 then
+					if stat<>0 and instr(referrer,"login.asp")>-1 then
+			.alert.alert-float.alert-danger.alert-dismissible(role='alert')
+				button.close(data-dismiss='alert')
+					span(aria-hidden=true.toString()) &times;
+					span.sr-only Close
+				span
+					asp.
+						if errMsg<>"User does not exist." then
+							dim n, strtemp
+							n=3-session("pass_attempts")
+							strtemp=" tries"
+							if n < 2 then strtemp=" try"
+						end if
+					strong Login Failure - <%=errMsg%>
+					br
+					asp if errMsg<>"User does not exist." then
+					|You have <%=n&strtemp%> left.
+					asp end if
+			asp     end if
+			.row
+				form#loginfrm.form-signin.center-block(method='post',action='login_val.asp',role='form')
+					.panel.panel-rci
+						.panel-heading
+							img#crest.center-block(src='images/crest.png',width=200)
+							h2.form-signin-heading RCI Dashboard Login
+						.panel-body
+							.lblOverlay
+							.lblOverlay
+								input#email.form-control.input-lg(type='email',name='email',required,autofocus,autocomplete='off')
+								label(for='email') Email Address
+							.lblOverlay
+								input#pass.form-control.input-lg(type='password',name='password',required,autocomplete='off')
+								label(for='pass') Password
+							//
+								.checkbox
+								label
+									input(type='checkbox' value='remember-me') Remember me
+						.panel-footer
+							button.btn.btn-lg.btn-success.btn-block(type='submit') Sign in
+			asp else
+			.row
+				form#loginfrm.form-signin.center-block(method='post',action='login.asp',encType='multipart/form-data',role='form')
+					.panel.panel-rci
+						.panel-heading
+							img#crest.center-block(src='images/crest.png',width=200)
+							h2.form-signin-heading RCI Dashboard Login
+						.panel-body
+							h4.text-center Login Failure - <%=errMsg%>
+							h4.text-center You have no more tries left.
+							asp session.timeout=1
+							h4#countdown.text-center
+							//Jquery
+							+javascript('js/jquery-1.10.2.min.js')
+							//Countdown
+							+javascript('js/jquery.plugin.min.js')
+							+javascript('js/jquery.countdown.min.js')
+							+js-inline
+								|var timeout_reset;
+
+								|$('#countdown').countdown({
+								|	until:timeout_reset,
+								|	format:'MS',
+								|	expiryUrl:window.location.href,
+								|	padZeroes:true,
+								|	significant:00,
+								|	layout:'Try again in {mnn} {ml} {snn} {sl}.'
+								|}); 
+
+								|timeout_reset=new Date();                                     
+								|timeout_reset.setSeconds(timeout_reset.getSeconds()+((<%=session.timeout%>+1)*60)); 
+								|$('#countdown').countdown('option', {until:timeout_reset});
+						.panel-footer
+							button.btn.btn-lg.btn-success.btn-block(type='submit',disabled) Sign in
+			asp end if
+append footer
+	<!--#include file="includes/nav_bottom.inc"--> 
+	//Bootstrap core JavaScript
+	//Placed at the end of the document so the pages load faster
+	asp if session("pass_attempts") < 3 then
+	+javascript('js/jquery-1.10.2.min.js')
+	asp end if
+	+javascript('js/bootstrap.min.js')
+	//IE10 viewport hack for Surface/desktop Windows 8 bug
+	+javascript('js/ie10-viewport-bug-workaround.js')
+	//Jquery Easing for Form
+	+javascript('js/jquery.easing.min.js')
+	//Form Animation
+	+javascript('js/labelAnimate.min.js')
+	//Document Resize
+	+javascript('js/fullsize.min.js')
+	+js-inline
+		|function adjustPlacement(){if($('.form-signin').height()<(window.innerHeight-$('#header').height()-$('#footer').height())){$('.form-signin').css('margin-top',window.innerHeight-$('#header').height()-$('#footer').height()-$('.site-wrap').height()/2-parseInt($('.site-wrap').css('padding-top'))/2-$('.form-signin').height()/2);}}
+		|$(document).ready(adjustPlacement());
+		|$(window).resize(function(){adjustPlacement();$('body').css('height',window.innerHeight-$('#header').height()-$('#footer').height());});
+	asp end if

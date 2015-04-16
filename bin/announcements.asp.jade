@@ -1,0 +1,226 @@
+extends ./includes/template.inc.jade
+include ./includes/mixin.inc.jade
+
+prepend head
+	-var cls='body-nav-offcanvas'
+
+mixin bxSlider(nrow,ncol,x,y,title,add_id,add_cls)
+	-var attr={}
+	if add_id!==''
+		-attr.id=add_id
+	if add_cls!==''
+		-attr.class=add_cls
+	li.grid-obj(data-row!=nrow,data-col!=ncol,data-sizex!=x,data-sizey!=y)&attributes(attr)
+		if title!==''
+			h1 #{title}
+		if block
+			block
+append meta
+	+meta-desc('Riverdale Collegiate Institute - Announcements')
+append title
+	+page-title('Riverdale Collegiate Institute - Announcements')
+append asph3
+	asp.
+		baseURL=request.servervariables("URL")
+append css
+	//Date Clock
+	+stylesheet('css/date_clock.css')
+	//Gridster.js Plugin
+	+stylesheet('css/jquery.gridster.min.css')
+	//bxSlider
+	+stylesheet('css/jquery.bxslider.css')
+	//Simple Weather Plugin With Yahoo Weather API
+	+stylesheet('css/jquery.simpleWeather.css')
+	style.
+
+		/*Move down content because we have a fixed navbar that is 50px tall*/
+		body{padding-top:0px;}
+		.site-wrap{padding-top:0px;}
+		.site-wrap>.container-fluid{padding-bottom:0px;}
+		.site-wrap,.site-wrap>.container-fluid{background:#222;}
+
+		#header{margin-bottom:0px;}
+
+		.gridster li{list-style:none; background:#fff}
+
+		.bxsliderv{padding:0px;}
+
+		.htitle,.hbody{padding:0px 20px 0px 20px;}
+		.htitle{font-size:200%;padding-top:10px;padding-bottom:10px;margin-bottom:10px;}
+		.hbody{font-size:200%;}
+
+		.vtitle,.vbody{padding:0px 20px 0px 20px;}
+		.vtitle{font-size:200%; padding-top:10px; padding-bottom:10px !important; margin-bottom:10px;}
+		.vbody{font-size:150%;}
+
+		.navbar-brand{padding-left:30px;}
+		#crest{width:50px;float:left;}
+
+		.clock ul, #Date{padding-left:20px; padding-right:20px;}
+		.clock *{line-height:1.2;}
+
+		*[id*='ann-header'],*[id*='post-header']{color:#fff;margin-top:10px;}
+		.ann-post{padding:0px;}
+		.ann-img{padding:0px;padding-top:20px;}
+		/*.bxsliderv li{padding-bottom:30px;}*/	
+append aspb1
+	asp.
+		dim objConn, objRs, strQuery, k, curDate, curTime, notToday, yy, mm, dd, annCount, annList
+
+		strQuery="SELECT * FROM announcements"	
+
+		yy=year(date())
+		mm=month(date())
+		dd=day(date())
+
+		if len(mm)<2 then mm="0"&mm
+		if len(dd)<2 then dd="0"&dd
+
+		curDate=cstr(yy&"/"&mm&"/"&dd)
+		curTime=FormatDateTime(now(),vbshorttime)
+
+		annCount=array()
+		redim annCount(2)
+
+		annList=array()
+		redim annList(2,2,2)
+
+		set objConn=server.createobject("ADODB.Connection")
+		set objRs=server.createobject("ADODB.Recordset")
+		
+		objConn.connectionstring="DRIVER={Microsoft Access Driver (*.mdb)};DBQ="&server.mappath("db/rciann.mdb")
+		objConn.open
+		objRs.open strQuery, objConn, , adLockOptimistic
+
+		dim a, b, x
+
+		annCount(0)=-1
+		annCount(1)=-1
+		annCount(2)=-1
+
+		do while not objRs.eof
+			notToday=true
+			if objRs("Verified") then
+				if objRs("Start_Date")<=curDate and objRs("End_Date")>=curDate then
+					if objRs("Start_Date")=curDate or objRs("End_Date")=curDate then notToday=false
+					if (objRs("Start_Time")<=curTime or objRs("End_Time")>=curTime) or notToday then
+						objRs("Cur_Posted")=true
+						select case objRs("Type")
+							case "important"
+								annCount(0)=annCount(0)+1
+								a=0
+								b=annCount(0)
+							case "meeting"
+								annCount(1)=annCount(1)+1
+								a=1
+								b=annCount(1)
+							case else
+								annCount(2)=annCount(2)+1
+								a=2
+								b=annCount(2)
+						end select
+						if annCount(0)>2 and annCount(0)>annCount(1) and annCount(0)>annCount(2) then 
+							redim preserve annList(2,2,annCount(0)+1)
+						elseif annCount(1)>2 and annCount(1)>annCount(0) and annCount(1)>annCount(2) then
+							redim preserve annList(2,2,annCount(1)+1)
+						elseif annCount(2)>2 and annCount(2)>annCount(0) and annCount(2)>annCount(1) then
+							redim preserve annList(2,2,annCount(2)+1)
+						end if
+						annList(a,0,b)=objRs("Title")
+						annList(a,1,b)=objRs("Description")
+						annList(a,2,b)=objRs("Image")
+					elseif objRs("End_Date")<=curDate and not objRs("Prev_Posted") then
+						if objRs("End_Date")=curDate then notToday=false
+						if (notToday=false and objRs("End_Time")<=curTime) or notToday then objRs("Prev_Posted")=true
+					end if
+				end if
+			end if
+			objRs.movenext
+		loop
+append content
+	.site-wrap
+		.container-fluid
+			.row
+				<!--#include file="includes/nav_top.inc"-->
+				.gridster
+					ul
+						//Horizontal Content Displays
+						+bxSlider('1','1','5','3','','','gridh')
+							ul.bxsliderh
+								asp for x=0 to annCount(0)
+								li
+									.htitle.bg-rci <%=annList(0,0,x)%>
+									asp if isnull(annList(0,2,x)) or isempty(annList(0,2,x)) or trim(annList(0,2,x))="" then
+									.hbody <%=annList(0,1,x)%>
+									asp else
+									.pull-left.col-md-8.ann-post
+										.hbody(style={'font-size':'22px'}) <%=annList(0,1,x)%>
+									.pull-right.col-md-4.ann-img
+										img(src!='uploads/<%=annList(0,2,x)%>')
+									asp end if
+								asp next
+						+bxSlider('4','1','5','3','','','gridh')
+							ul.bxsliderh
+								asp for x=0 to annCount(1)
+								li
+									.htitle.bg-rci <%=annList(1,0,x)%>
+									asp if isnull(annList(1,2,x)) or isempty(annList(1,2,x)) or trim(annList(0,2,x))="" then
+									.hbody <%=annList(1,1,x)%>
+									asp else
+									.pull-left.col-md-8.ann-post
+										.hbody(style={'font-size':'22px'}) <%=annList(1,1,x)%>
+									.pull-right.col-md-4.ann-img
+										img(src!='uploads/<%=annList(1,2,x)%>')
+									asp end if
+								asp next
+						//Vertical Content Displays
+						asp for k=1 to 5 step 2
+						+bxSlider('<%=k%>','6','4','2','','','gridv')
+							ul.bxsliderv
+								asp for x=0 to annCount(2)
+								li
+									.vtitle.bg-rci <%=annList(2,0,x)%>
+									.vbody <%=annList(2,1,x)%>
+								asp next
+							asp.
+								for x=0 to annCount(2)
+									if x=0 then
+										annList(2,0,annCount(2)+1)=annList(2,0,x)
+										annList(2,1,annCount(2)+1)=annList(2,1,x)
+									end if
+									annList(2,0,x)=annList(2,0,x+1)
+									annList(2,1,x)=annList(2,1,x+1)
+								next
+						asp next
+						//Other Content Displays
+						+bxSlider('1','10','3','4','','dt','gridh')
+							#weather.center-block
+							.clearfix
+							<!--#include file="includes/date_clock.inc"-->
+						+bxSlider('4','10','3','2','','','gridh')
+append footer
+	//Bootstrap core JavaScript
+	//Placed at the end of the document so the pages load faster
+	+javascript('js/jquery-1.10.2.min.js')
+	+javascript('js/bootstrap.min.js')
+	+javascript('js/docs.min.js')
+	//IE10 viewport hack for Surface/desktop Windows 8 bug
+	+javascript('js/ie10-viewport-bug-workaround.js')
+	//Date Clock
+	+javascript('js/date_clock.js')
+	//Gridster.js Plugin
+	+javascript('js/jquery.gridster.min.js')
+	//bxSlider
+	+javascript('js/jquery.bxslider.js')
+	//Simple Weather Plugin With Yahoo Weather API
+	+javascript('js/jquery.simpleWeather.min.js')
+	//Initiatation of scripts
+	+js-inline
+		include ./scripts/announcements.js
+	+javascript('js/fullsize.min.js')
+append aspb4
+	asp.
+		objRs.close
+		objConn.close
+		set objRs=nothing
+		set objConn=nothing
