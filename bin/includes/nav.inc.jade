@@ -1,65 +1,65 @@
 //Off Canvas Navigation
 mixin nav-item(href,title)
-    li
-        .panel-group
-            .panel.panel-default
-                a.panel-default(href!=href)
-                    .panel-heading
-                        h4.panel-title #{title}
+	li
+		.panel-group
+			.panel.panel-default
+				a.panel-default(href!=href)
+					.panel-heading
+						h4.panel-title #{title}
 mixin nav-item-menu(href,title)
-    li
-        .panel-group.nav-offcanvas-accordion
-            .panel.panel-default
-                a.panel-default(data-toggle='collapse',data-parent='.nav-offcanvas-accordion',href=href)
-                    .panel-heading
-                        h4.panel-title #{title}
-                block
+	li
+		.panel-group.nav-offcanvas-accordion
+			.panel.panel-default
+				a.panel-default(data-toggle='collapse',data-parent='.nav-offcanvas-accordion',href=href)
+					.panel-heading
+						h4.panel-title #{title}
+				block
 mixin nav-item-menu-items(href,title)
-    .panel-body
-        ul.nav.nav-pills.nav-stacked
-            -var n=title.length
-            -for(var i=0;i<n;i++)
-                li: a(href!=href.length?href[i]:'#',target=target[i]) #{title[i]}
+	.panel-body
+		ul.nav.nav-pills.nav-stacked
+			-var n=title.length
+			-for(var i=0;i<n;i++)
+				li: a(href!=href.length?href[i]:'#',target=target[i]) #{title[i]}
 //Nav Public
 asp verified=session("verified")
 asp if not verified then
 ul.nav-offcanvas
-    +nav-item('announcements.asp','View Announcements')
-    +nav-item('login.asp','Login')
-    //+nav-item("javascript:$('#email').val('guest@rciann.com');$('#pass').val('l0ck3d_0u7!');$('#loginfrm').submit();",'Demo Dashboard')
-    +nav-item('page_under_construction.asp','About')
+	+nav-item('announcements.asp','View Announcements')
+	+nav-item('login.asp','Login')
+	//+nav-item("javascript:$('#email').val('guest@rciann.com');$('#pass').val('l0ck3d_0u7!');$('#loginfrm').submit();",'Demo Dashboard')
+	+nav-item('page_under_construction.asp','About')
 asp else
 //Nav Dashboard
 -var href,target,title,temp,href_temp,tar_temp
 -href_temp='page_under_construction_dash.asp'
 -tar_temp='content_container'
 ul.nav-offcanvas
-    +nav-item-menu('#nav-offcanvas-menu-1','Announcements')
-        #nav-offcanvas-menu-1.panel-collapse.collapse
-            -temp=' Announcements'
-            -href=['ann_add.asp','ann_list.asp?action=verify','ann_list.asp?action=list','announcements.asp']
-            -target=[tar_temp,tar_temp,tar_temp,'_blank']
-            -title=['Add'+temp,'Verify'+temp,'List'+temp,'View'+temp]
-            +nav-item-menu-items(href,title)
-    +nav-item-menu('#nav-offcanvas-menu-2','Members')
-        #nav-offcanvas-menu-2.panel-collapse.collapse
-            -temp=' Members'
-            -href=['mem_add.asp','mem_list.asp']
-            -target=[tar_temp,tar_temp]
-            -title=['Add'+temp,'List'+temp]
-            +nav-item-menu-items(href,title)
-    +nav-item-menu('#nav-offcanvas-menu-3','Profile')
-        #nav-offcanvas-menu-3.panel-collapse.collapse
-            -href=['mem_list.asp?action=profile&ID=<%=session("id")%>','mem_add.asp?action=editExisting&ID=<%=session("id")%>']
-            -target=[tar_temp,tar_temp]
-            -title=['View Profile','Change Password']
-            +nav-item-menu-items(href,title)
-    +nav-item-menu('#nav-offcanvas-menu-4','Settings')
-        #nav-offcanvas-menu-4.panel-collapse.collapse
-            -href=[href_temp,href_temp,href_temp,href_temp]
-            -target=[tar_temp,tar_temp,tar_temp,tar_temp]
-            -title=['Announcement Display','Dashboard','Messages','About']
-            +nav-item-menu-items(href,title)
-    +nav-item('logout.asp','Logout')
+	+nav-item-menu('#nav-offcanvas-menu-1','Announcements')
+		#nav-offcanvas-menu-1.panel-collapse.collapse
+			-temp=' Announcements'
+			-href=['ann_add.asp','ann_list.asp?action=verify','ann_list.asp?action=list','announcements.asp']
+			-target=[tar_temp,tar_temp,tar_temp,'_blank']
+			-title=['Add'+temp,'Verify'+temp,'List'+temp,'View'+temp]
+			+nav-item-menu-items(href,title)
+	+nav-item-menu('#nav-offcanvas-menu-2','Members')
+		#nav-offcanvas-menu-2.panel-collapse.collapse
+			-temp=' Members'
+			-href=['mem_add.asp','mem_list.asp']
+			-target=[tar_temp,tar_temp]
+			-title=['Add'+temp,'List'+temp]
+			+nav-item-menu-items(href,title)
+	+nav-item-menu('#nav-offcanvas-menu-3','Profile')
+		#nav-offcanvas-menu-3.panel-collapse.collapse
+			-href=['mem_list.asp?action=profile&ID=<%=session("id")%>','mem_add.asp?action=editExisting&ID=<%=session("id")%>']
+			-target=[tar_temp,tar_temp]
+			-title=['View Profile','Change Password']
+			+nav-item-menu-items(href,title)
+	+nav-item-menu('#nav-offcanvas-menu-4','Settings')
+		#nav-offcanvas-menu-4.panel-collapse.collapse
+			-href=[href_temp,href_temp,href_temp,href_temp]
+			-target=[tar_temp,tar_temp,tar_temp,tar_temp]
+			-title=['Announcement Display','Dashboard','Messages','About']
+			+nav-item-menu-items(href,title)
+	+nav-item('logout.asp','Logout')
 asp end if
 //end Off Canvas Navigation

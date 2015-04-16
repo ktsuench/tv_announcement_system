@@ -4,34 +4,34 @@ asp 'option explicit
 //End Bare Template
 doctype html
 html(lang='en')
-    block asp1
-    head
-        block asph1
-        block meta
-            //Template
-            meta(charset='utf-8')
-            meta(http-equiv='X-UA-Compatible',content='IE=edge')
-            meta(name='viewport',content='width=device-width, initial-scale=1')
-            meta(name='author',content='')
-            link(rel='icon',href='images/favicon.ico')
-            //End Template
-        block asph2
-        block title
-        block head
-            //Template
-            asp.
-                if instr(baseURL,"upload.asp")=-1 then
-                    const adLockOptimistic=3           
-                    const adOpenDynamic=2
-                    const adAddNew=16778240 
-                    const adDelete=16779264     
-                    const adUpdate=16809984
-                    const adUpdateBatch=65536
-                end if
+	block asp1
+	head
+		block asph1
+		block meta
+			//Template
+			meta(charset='utf-8')
+			meta(http-equiv='X-UA-Compatible',content='IE=edge')
+			meta(name='viewport',content='width=device-width, initial-scale=1')
+			meta(name='author',content='')
+			link(rel='icon',href='images/favicon.ico')
+			//End Template
+		block asph2
+		block title
+		block head
+			//Template
+			asp.
+				if instr(baseURL,"upload.asp")=-1 then
+					const adLockOptimistic=3
+					const adOpenDynamic=2
+					const adAddNew=16778240
+					const adDelete=16779264
+					const adUpdate=16809984
+					const adUpdateBatch=65536
+				end if
 
-                dim baseURL, strURL
-            //End Template
-    block asp2
-    body(class=cls)
-        block body
-    block asp3
+				dim baseURL, strURL
+			//End Template
+	block asp2
+	body(class=cls)
+		block body
+	block asp3

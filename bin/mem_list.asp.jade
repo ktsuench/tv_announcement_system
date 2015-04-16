@@ -41,12 +41,12 @@ append aspb1
 		strFuncURL(0)=baseURL&"mem_add.asp":	strFuncQuery(0)="action=editExisting":		actionLink(0)="Edit"
 		strFuncURL(1)=baseURL&"mem_sub.asp":	strFuncQuery(1)="action=delete":			actionLink(1)="Remove"
 
-		select case sortOrder 
-			case 1:strQuery=strQuery&" ORDER BY Lastname"
-			case 2:strQuery=strQuery&" ORDER BY Email"
-			case 3:strQuery=strQuery&" ORDER BY Clearance"
-			case 4:strQuery=strQuery&" ORDER BY Signature"
-		end select	
+		select case sortOrder
+		    case 1:strQuery=strQuery&" ORDER BY Lastname"
+		    case 2:strQuery=strQuery&" ORDER BY Email"
+		    case 3:strQuery=strQuery&" ORDER BY Clearance"
+		    case 4:strQuery=strQuery&" ORDER BY Signature"
+		end select
 
 		set objConn=server.createobject("ADODB.Connection")
 		set objRs=server.createobject("ADODB.Recordset")
@@ -73,11 +73,11 @@ append container
 							th.col-sm-1.col-md-1
 			asp.
 				do while not objRs.eof
-					isSysAdmin=false
-					elid="di"&objRs("ID")&"-toggle"
-					'elcls="panel-"&trCls
-					eldatapar="info-"&objRs("ID")
-					elhref="info-"&objRs("ID")&"-disp"
+				    isSysAdmin=false
+				    elid="di"&objRs("ID")&"-toggle"
+				    'elcls="panel-"&trCls
+				    eldatapar="info-"&objRs("ID")
+				    elhref="info-"&objRs("ID")&"-disp"
 			.panel(class!='panel-info')
 				a(id!='<%=elid%>',class='panel-info',data-toggle='collapse',data-parent!='.<%=eldatapar%>',href!='#<%=elhref%>',onclick='/*adjustHeight($(this));*/')
 					.panel-heading.panel-table
@@ -85,11 +85,11 @@ append container
 							tr
 								asp.
 									if objRs("Firstname")="Admin" then
-										memName="Admin"
+									    memName="Admin"
 									elseif objRs("Firstname")="Guest" then
-										memName="Guest"
+									    memName="Guest"
 									else
-										memName=objRs("Lastname")&", "&left(objRs("Firstname"),1)&"."
+									    memName=objRs("Lastname")&", "&left(objRs("Firstname"),1)&"."
 									end if
 								td.panel-info.col-sm-4.col-md-3 <%=htmlEntityEncode(memName)%>
 								td.panel-info.col-sm-4.col-md-4 <%=htmlEntityEncode(objRs("Email"))%>
@@ -113,9 +113,9 @@ append container
 							asp.
 								dim lname
 								if trim(objRs("Lastname"))<>"." then
-									lname=objRs("Lastname")
+								    lname=objRs("Lastname")
 								else
-									lname="n/a"
+								    lname="n/a"
 								end if
 							.info-item Lastname: <%=htmlEntityEncode(lname)%>
 							.info-item Firstname: <%=htmlEntityEncode(objRs("Firstname"))%>

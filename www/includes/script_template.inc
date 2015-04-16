@@ -2,14 +2,14 @@
 <%'@language=vbscript%>
 <%'option explicit%>
 <%
-    if instr(baseURL,"upload.asp")=-1 then
-        const adLockOptimistic=3           
-        const adOpenDynamic=2
-        const adAddNew=16778240 
-        const adDelete=16779264     
-        const adUpdate=16809984
-        const adUpdateBatch=65536
-    end if
-    
-    dim baseURL, strURL
+	if instr(baseURL,"upload.asp")=-1 then
+		const adLockOptimistic=3           
+		const adOpenDynamic=2
+		const adAddNew=16778240 
+		const adDelete=16779264     
+		const adUpdate=16809984
+		const adUpdateBatch=65536
+	end if
+	
+	dim baseURL, strURL
 %>
