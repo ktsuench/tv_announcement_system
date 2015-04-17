@@ -16,49 +16,6 @@ append css
 		.panel-table table{margin-bottom:0px;}
 		.info-item{margin-bottom:5px;}
 		.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td{padding-right:0;}
-append aspb1
-	<!--#include file="scripts/htmlEncode.asp"-->	
-	asp.
-		dim objConn, objRs, strQuery, sortOrder, duration, action, actionLink(1), strFuncURL(1), strFuncQuery(1), displayRec, trCls, yy, mm, dd, curDate, curTime, notToday, x, elcls, elid, eldatapar, elhref, cls
-
-		strQuery="SELECT * FROM announcements"
-		sortOrder=request("sortOrder")
-		action=request("action")
-		baseURL=mid(baseURL,1,instrrev(request.servervariables("URL"),"/"))
-		strURL=baseURL&"ann_list.asp"
-
-		yy=year(date())
-		mm=month(date())
-		dd=day(date())
-
-		if len(mm)<2 then mm="0"&mm
-		if len(dd)<2 then dd="0"&dd
-
-		curDate=cstr(yy&"/"&mm&"/"&dd)
-		curTime=FormatDateTime(now(),vbshorttime)
-
-		strFuncURL(0)=baseURL&"ann_add.asp":	strFuncQuery(0)="action=editExisting":	actionLink(0)="Edit"
-
-		select case action
-			case "verify":	strFuncURL(1)=baseURL&"ann_sub.asp":	strFuncQuery(1)="action=verify":	actionLink(1)="Verify"
-			case "list":	strFuncURL(1)=baseURL&"ann_sub.asp":	strFuncQuery(1)="action=delete":	actionLink(1)="Remove"
-		end select 
-
-		select case sortOrder 
-			case 1:strQuery=strQuery&" ORDER BY Title"
-			case 2:strQuery=strQuery&" ORDER BY Description"
-			case 3:strQuery=strQuery&" ORDER BY Type"
-			case 4:strQuery=strQuery&" ORDER BY Start_Date"
-			case 5:strQuery=strQuery&" ORDER BY End_Date"
-			case else:strQuery=strQuery&" ORDER BY Title"
-		end select  
-
-		set objConn=server.createobject("ADODB.Connection")
-		set objRs=server.createobject("ADODB.Recordset")
-
-		objConn.connectionstring="DRIVER={Microsoft Access Driver (*.mdb)};DBQ="&server.mappath("db/rciann.mdb")
-		objConn.open
-		objRs.open strQuery, objConn, , adLockOptimistic
 append container
 	h2.page-header
 		asp if action="list" then
@@ -72,113 +29,12 @@ append container
 				.panel-heading.panel-table
 					table#tbl-head.table.table-hover.table-condensed.table-responsive
 						tr
-							th.col-sm-4.col-md-2
-								a(href!='<%=strURL%>?sortOrder=1&action=<%=action%>') Title
-							th.col-sm-4.col-md-4
-								a(href!='<%=strURL%>?sortOrder=2&action=<%=action%>') Description
+							th.col-sm-4.col-md-2 Title
+							th.col-sm-4.col-md-4 Description
+							th.col-sm-1.col-md-1 Type
+							th.col-sm-1.col-md-2 Start Date <wbr />&amp; Time
+							th.col-sm-1.col-md-2 Finish Date <wbr />&amp; Time
 							th.col-sm-1.col-md-1
-								a(href!='<%=strURL%>?sortOrder=3&action=<%=action%>') Type
-							th.col-sm-1.col-md-2
-								a(href!='<%=strURL%>?sortOrder=4&action=<%=action%>') Start Date <wbr />&amp; Time
-							th.col-sm-1.col-md-2
-								a(href!='<%=strURL%>?sortOrder=5&action=<%=action%>') Finish Date <wbr />&amp; Time
-							th.col-sm-1.col-md-1
-			asp.
-				do while not objRs.eof
-					displayRec=true
-					if action="verify" and objRs("Verified") then
-						displayRec=false
-					else
-						notToday=true
-						if objRs("Verified") then
-							if objRs("Start_Date")<=curDate and objRs("End_Date")>=curDate then
-								if objRs("Start_Date")=curDate or objRs("End_Date")=curDate then notToday=false
-								if (objRs("Start_Time")<=curTime or objRs("End_Time")>=curTime) or notToday then
-									objRs("Prev_Posted")=false
-									objRs("Cur_Posted")=true
-								elseif objRs("End_Date")<=curDate and objRs("End_Time")<=curTime and not objRs("Prev_Posted") then
-									objRs("Prev_Posted")=true
-									objRs("Cur_Posted")=false
-								end if
-							end if
-						end if
-					end if
-
-					if displayRec then
-						if objRs("Verified") and objRs("Cur_Posted") then
-							trCls="success"
-						elseif objRs("Prev_Posted") then
-							trCls="warning"
-						elseif objRs("Verified") then
-							trCls="info"
-						else
-							trCls="danger"
-						end if
-
-						if len(objRs("Description"))>=60 then
-							x="..."
-						else
-							x=""
-						end if
-
-						elcls="panel-"&trCls&" info-"&objRs("ID")
-			.panel(class!='<%=elcls%>')
-				asp.
-					elid="di"&objRs("ID")&"-toggle"
-					elcls="panel-"&trCls
-					eldatapar="info-"&objRs("ID")
-					elhref="info-"&objRs("ID")&"-disp"
-				a(id!='<%=elid%>',class!='<%=elcls%>',data-toggle='collapse',data-parent!='.<%=eldatapar%>',href!='#<%=elhref%>',onclick='/*adjustHeight($(this));*/')
-					.panel-heading.panel-table
-						table.table.table-condensed.table-responsive
-							tr
-								td.col-sm-4.col-md-2(class!='<%=trCls%>') <%=htmlEntityEncode(objRs("Title"))%>
-								td.col-sm-4.col-md-4(class!='<%=trCls%>',style='padding-right:25px;') <%=htmlEntityEncode(mid(objRs("Description"),1,60)&x)%>
-								td.col-sm-1.col-md-1(class!='<%=trCls%>',style='text-transform:capitalize;') <%=objRs("Type")%>
-								td.col-sm-1.col-md-2(class!='<%=trCls%>') <%=htmlEntityEncode(objRs("Start_Date"))%><wbr />&nbsp;<%=htmlEntityEncode(objRs("Start_Time"))%>
-								td.col-sm-1.col-md-2(class!='<%=trCls%>') <%=htmlEntityEncode(objRs("End_Date"))%><wbr />&nbsp;<%=htmlEntityEncode(objRs("End_Time"))%>
-								asp.
-									strQuery=array():   redim strQuery(1)
-									strQuery(0)="?ID="&objRs("ID")&"&"&strFuncQuery(0): strQuery(1)="?ID="&objRs("ID")&"&"&strFuncQuery(1)
-
-									if action="verify" then
-										cls="btn-verify btn-info"
-									else
-										cls="btn-remove btn-danger"
-									end if
-								td.col-sm-1.col-md-1(class!='<%=trCls%>')
-									button.btn.btn-success.btn-edit.col-sm-12.col-md-12(onclick!="$('#content_container',window.parent.document).attr('src','<%=strFuncURL(0)&strQuery(0)%>');") <%=actionLink(0)%>
-									button.btn.col-sm-12.col-md-12(class!='<%=cls%>',onclick!="$('#content_container',window.parent.document).attr('src','<%=strFuncURL(1)&strQuery(1)%>');") <%=actionLink(1)%>
-				.panel-body(class!='panel-<%=trCls%>',style='padding:0px;')
-					.panel-collapse.collapse.col-sm-12.col-md-12(id!='<%=elhref%>',class!='bg-<%=trCls%>',style='padding:0px 20px 0px 20px;')
-						.info-item.col-sm-12.col-md-12(class!='<%=trCls%>',style='margin-top:20px')
-							span Description:&nbsp;
-							|<%=htmlEntityEncode(objRs("Description"))%>
-						.info-item.col-sm-12.col-md-12(class!='<%=trCls%>')
-							asp x=objRs("Image")
-							asp if isempty(x) or isnull(x) or trim(x)="" then x="None"
-							span.col-sm-6.col-md-6(style='padding-left:0px;') Image: <%=htmlEntityEncode(x)%>
-							.col-sm-6.col-md-6
-								label.checkbox-inline
-									input(type='checkbox',disabled,'<%if objRs("Cur_Posted") then response.write("checked")%>')
-									| - Currently Posted
-								label.checkbox-inline
-									input(type='checkbox',disabled,'<%if objRs("Prev_Posted") then response.write("checked")%>')
-									| - Previously Posted
-								label.checkbox-inline
-									input(type='checkbox',disabled,'<%if objRs("Verified") then response.write("checked")%>')
-									| - Verified
-						.info-item.col-sm-6.col-md-6(class!='<%=trCls%>',style='margin-bottom:20px')
-							.info-item Created By: <%=objRs("Created_By")%>
-							.info-item Modified By: <%=objRs("Modified_By")%>
-						.info-item.col-sm-6.col-md-6(class!='<%=trCls%>',style='margin-bottom:20px')
-							.info-item Date Created: <%=htmlEntityEncode(objRs("Date_Created"))%>
-							.info-item Date Modified: <%=htmlEntityEncode(objRs("Date_Modified"))%>
-			asp.
-				    end if
-
-					objRs.movenext
-				loop
 append footer
 	include ./includes/iframe_resize.inc.jade
 	+js-inline
@@ -191,9 +47,3 @@ append footer
 		|		n.height(n.height()+m.height()-10);
 		|	}
 		|}*/
-append aspb4
-	asp.
-		objRs.close
-		objConn.close
-		set objRs=nothing
-		set objConn=nothing
