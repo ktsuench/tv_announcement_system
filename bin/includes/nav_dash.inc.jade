@@ -27,9 +27,9 @@ ul.nav-offcanvas
 	+nav-item-menu('#nav-offcanvas-menu-1','Announcements')
 		#nav-offcanvas-menu-1.panel-collapse.collapse
 			-temp=' Announcements'
-			-href=['ann_add.asp','ann_list.asp?action=verify','ann_list.asp?action=list','announcements.asp']
-			-target=[tar_temp,tar_temp,tar_temp,'_blank']
-			-title=['Add'+temp,'Verify'+temp,'List'+temp,'View'+temp]
+			-href=['ann_add.asp','ann_list.asp?action=list','announcements.asp']
+			-target=[tar_temp,tar_temp,'_blank']
+			-title=['Add'+temp,'List'+temp,'View'+temp]
 			+nav-item-menu-items(href,title)
 	+nav-item-menu('#nav-offcanvas-menu-2','Members')
 		#nav-offcanvas-menu-2.panel-collapse.collapse

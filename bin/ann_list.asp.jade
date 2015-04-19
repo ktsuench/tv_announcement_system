@@ -18,13 +18,12 @@ append css
 		.panel-table table{margin-bottom:0px;}
 		.info-item{margin-bottom:5px;}
 		.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td{padding-right:0;}
+append aspb1
+	asp.
+		dim action
+		action=request("action")
 append container
-	h2.page-header
-		asp if action="list" then
-		|Announcement Listing
-		asp else
-		|Verify Announcements
-		asp end if
+	h2.page-header Announcement Listing
 	.row
 		form
 			.form-group.col-sm-4.col-md-3(style='margin-top:15px;')

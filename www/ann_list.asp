@@ -63,15 +63,15 @@
 			end if
 		%>
 		<!--End Dashboard Template-->
+		<%
+			dim action
+			action=request("action")
+		%>
 		<!--Header-->
 		<!--Content-->
 		<div class="site-wrap">
 			<div class="container-fluid">
-				<h2 class="page-header">
-					<%if action="list" then%>Announcement Listing
-					<%else%>Verify Announcements
-					<%end if%>
-				</h2>
+				<h2 class="page-header">Announcement Listing</h2>
 				<div class="row">
 					<form>
 						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">

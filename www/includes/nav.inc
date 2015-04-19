@@ -43,7 +43,6 @@
 					<div class="panel-body">
 						<ul class="nav nav-pills nav-stacked">
 							<li><a href="ann_add.asp" target="content_container">Add Announcements</a></li>
-							<li><a href="ann_list.asp?action=verify" target="content_container">Verify Announcements</a></li>
 							<li><a href="ann_list.asp?action=list" target="content_container">List Announcements</a></li>
 							<li><a href="announcements.asp" target="_blank">View Announcements</a></li>
 						</ul>
