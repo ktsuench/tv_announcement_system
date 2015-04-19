@@ -88,7 +88,7 @@
 									<div class="panel-heading">
 										<h3 class="panel-title">Dashboard Information</h3>
 									</div></a>
-								<div id="dash-info-disp" class="panel-collapse collapse">
+								<div id="dash-info-disp" class="panel-collapse collapse in">
 									<div class="panel-body">
 										<div class="col-md-4"><span>Welcome to the RCI Announcement System. If there are any questions, comments, or concerns regarding this system, contact your system administrators. Any and all feedback on this system is welcome.</span></div>
 										<div class="col-md-8">
