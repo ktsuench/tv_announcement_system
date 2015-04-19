@@ -9,6 +9,8 @@ append meta
 append title
 	+page-title('Riverdale Collegiate Institute - Announcement List')
 append css
+	//Bootstrap Select Input css
+	+stylesheet('css/bootstrap-combobox.css')
 	style.
 		.annDT{/*width:150px;*/}
 		.btn-edit{margin-bottom:5px;}
@@ -24,6 +26,37 @@ append container
 		|Verify Announcements
 		asp end if
 	.row
+		form
+			.form-group.col-sm-4.col-md-3(style='margin-top:15px;')
+				label.control-label(for='tblheader') Sort By Header: 
+				select#tblheader.form-control(name='tblheader',autocomplete='off')
+					option(value='title',selected) Title
+					option(value='description') Description
+					option(value='type') Type
+					option(value='created_by') Created By
+					option(value='modified_by') Modified By
+					option(value='startdt') Start Date &amp; Time
+					option(value='finishdt') Finish Date &amp; Time
+					option(value='createddt') Created Date &amp; Time
+					option(value='modifieddt') Modified Date &amp; Time
+			.form-group.col-sm-4.col-md-3(style='margin-top:15px;')
+				label.control-label(for='anntype') Announcement Type: 
+				select#anntype.form-control(name='anntype',autocomplete='off')
+					option(value='all',selected) All
+					option(value='important') Important
+					option(value='meeting') Meeting
+					option(value='university') University
+					option(value='volunteer') Volunteer
+					option(value='sports') Sports
+					option(value='other') Other
+			.form-group.col-sm-4.col-md-3(style='margin-top:15px;')
+				label.control-label(for='tblstat') List By Status: 
+				select#tblstat.form-control(name='tblstat',autocomplete='off',required)
+					option(value='all',selected) All
+					option(value='currently_posted') Currently Posted
+					option(value='previously_posted') Previously Posted
+					option(value='verified') Verified
+					option(value='verificatin_reqd') Needs Verification
 		.panel-group
 			.panel.panel-default
 				.panel-heading.panel-table
@@ -47,3 +80,17 @@ append footer
 		|		n.height(n.height()+m.height()-10);
 		|	}
 		|}*/
+	//BootStrap Select Input
+	+javascript('js/bootstrap-combobox.js')
+	//Initialize select input fields
+	+js-inline
+		|$(function () {
+		|	$('#tblheader').combobox();
+		|	$('#tblheader').prev().children('div').children('input[type*=text]').attr('placeholder','Select Header To Sort By');
+
+		|	$('#anntype').combobox();
+		|	$('#anntype').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Type To Sort By');
+
+		|	$('#tblstat').combobox();
+		|	$('#tblstat').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Status To Sort By');
+		|});

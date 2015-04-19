@@ -33,6 +33,8 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="css/style.css"/>
 		<!--End Template-->
+		<!--Bootstrap Select Input css-->
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-combobox.css"/>
 		<style>
 			.annDT{/*width:150px;*/}
 			.btn-edit{margin-bottom:5px;}
@@ -71,6 +73,44 @@
 					<%end if%>
 				</h2>
 				<div class="row">
+					<form>
+						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">
+							<label for="tblheader" class="control-label">Sort By Header: </label>
+							<select id="tblheader" name="tblheader" autocomplete="off" class="form-control">
+								<option value="title" selected>Title</option>
+								<option value="description">Description</option>
+								<option value="type">Type</option>
+								<option value="created_by">Created By</option>
+								<option value="modified_by">Modified By</option>
+								<option value="startdt">Start Date &amp; Time</option>
+								<option value="finishdt">Finish Date &amp; Time</option>
+								<option value="createddt">Created Date &amp; Time</option>
+								<option value="modifieddt">Modified Date &amp; Time</option>
+							</select>
+						</div>
+						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">
+							<label for="anntype" class="control-label">Announcement Type: </label>
+							<select id="anntype" name="anntype" autocomplete="off" class="form-control">
+								<option value="all" selected>All</option>
+								<option value="important">Important</option>
+								<option value="meeting">Meeting</option>
+								<option value="university">University</option>
+								<option value="volunteer">Volunteer</option>
+								<option value="sports">Sports</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">
+							<label for="tblstat" class="control-label">List By Status: </label>
+							<select id="tblstat" name="tblstat" autocomplete="off" required class="form-control">
+								<option value="all" selected>All</option>
+								<option value="currently_posted">Currently Posted</option>
+								<option value="previously_posted">Previously Posted</option>
+								<option value="verified">Verified</option>
+								<option value="verificatin_reqd">Needs Verification</option>
+							</select>
+						</div>
+					</form>
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-heading panel-table">
@@ -114,6 +154,19 @@
 							n.height(n.height()+m.height()-10);
 						}
 					}*/
+				</script>
+		<!--BootStrap Select Input-->
+				<script type="text/javascript" src="js/bootstrap-combobox.js"></script>
+		<!--Initialize select input fields-->
+				<script type="text/javascript">
+					$(function () {
+						$('#tblheader').combobox();
+						$('#tblheader').prev().children('div').children('input[type*=text]').attr('placeholder','Select Header To Sort By');
+						$('#anntype').combobox();
+						$('#anntype').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Type To Sort By');
+						$('#tblstat').combobox();
+						$('#tblstat').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Status To Sort By');
+					});
 				</script>
 		<!--Template-->
 				<script type="text/javascript" src="js/HTML_Inspector.js"></script>
