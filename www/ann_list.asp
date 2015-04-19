@@ -37,7 +37,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap-combobox.css"/>
 		<style>
 			.annDT{/*width:150px;*/}
-			.btn-edit{margin-bottom:5px;}
+			.btn-edit,.btn-verify{margin-bottom:5px;}
 			.panel-table{padding: 0px 10px 0px 10px;}
 			.panel-table table{margin-bottom:0px;}
 			.info-item{margin-bottom:5px;}
@@ -167,6 +167,24 @@
 						$('#tblstat').combobox();
 						$('#tblstat').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Status To Sort By');
 					});
+				</script>
+		<!--AJAX ASP-->
+				<script type="text/javascript">
+					function ajaxAsp(){
+						$.ajax({
+							async: true,
+							url: 'ann_list_ajax.asp',
+							type: 'get',
+							//data: {'action':aval},
+							mimeType: 'application/x-www-form-urlencoded',
+							contentType: false,
+							cache: false,
+							processData: true,
+							success:function (data,textStatus,jqXHR){$('.panel-group').append(data);},
+							error:function (jqXHR,textStatus,errorThrown){$('.panel-group').append(textStatus);}
+						});
+					}
+					ajaxAsp();
 				</script>
 		<!--Template-->
 				<script type="text/javascript" src="js/HTML_Inspector.js"></script>

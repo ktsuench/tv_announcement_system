@@ -100,16 +100,16 @@ append body
 
 				response.write("<td class='col-sm-1 col-md-1 "&trCls&"'>")		
 
-				for i = 0 to 2
-					if i = 1 and not objRs("Verified") then
-						if i = 0 then
-							cls="btn-success btn-edit"
-						elseif i = 1 then
-							cls="btn-info btn-verify"
-						else
-							cls="btn-danger btn-remove"
-						end if
-						response.write("<button onclick='$(\'#content_container\',window.parent.document).attr(\'src\',\'"&strFuncURL(i)&strQuery(i)&"\');' class='btn "&cls&" col-sm-12 col-md-12'>"&actionLink(i)&"</button>")
+				for i = 0 to 2					
+					if i = 0 then
+						cls="btn-success btn-edit"
+					elseif i = 1 then
+						cls="btn-info btn-verify"
+					else
+						cls="btn-danger btn-remove"
+					end if
+					if i <> 1 or (i = 1 and not objRs("Verified")) then
+						response.write("<button onclick='$(""#content_container"",window.parent.document).attr(""src"","""&strFuncURL(i)&strQuery(i)&""");' class='btn "&cls&" col-sm-12 col-md-12'>"&actionLink(i)&"</button>")
 					end if
 				next
 
@@ -127,11 +127,17 @@ append body
 
 				response.write("<span style='padding-left:0px;' class='col-sm-6 col-md-6'>Image: "&htmlEntityEncode(x)&"</span>")
 				response.write("<div class='col-sm-6 col-md-6'><label class='checkbox-inline'>")
-				response.write("<input type='checkbox' disabled "&if objRs("Cur_Posted") then response.write("checked")&"/>- Previously Posted")
+				cls=""
+				if objRs("Cur_Posted") then cls="checked"
+				response.write("<input type='checkbox' disabled "&cls&"/>- Previously Posted")
 				response.write("</label><label class='checkbox-inline'>")
-				response.write("<input type='checkbox' disabled "&if objRs("Prev_Posted") then response.write("checked")&"/>- Currently Posted")
+				cls=""
+				if objRs("Prev_Posted") then cls="checked"
+				response.write("<input type='checkbox' disabled "&cls&"/>- Currently Posted")
 				response.write("</label><label class='checkbox-inline'>")
-				response.write("<input type='checkbox' disabled "&if objRs("Verified") then response.write("checked")&"/>- Verified")
+				cls=""
+				if objRs("Verified") then cls="checked"	
+				response.write("<input type='checkbox' disabled "&cls&"/>- Verified")
 				response.write("</label></div></div>")
 
 				response.write("<div style='margin-bottom:20px' class='info-item col-sm-6 col-md-6 "&trCls&"'>")
