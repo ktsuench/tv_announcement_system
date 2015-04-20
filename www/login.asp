@@ -134,6 +134,7 @@
 								<script type="text/javascript" src="js/jquery.countdown.min.js"></script>
 								<script type="text/javascript">
 									var timeout_reset;
+									 
 									$('#countdown').countdown({
 										until:timeout_reset,
 										format:'MS',
@@ -142,6 +143,7 @@
 										significant:00,
 										layout:'Try again in {mnn} {ml} {snn} {sl}.'
 									}); 
+									 
 									timeout_reset=new Date();                                     
 									timeout_reset.setSeconds(timeout_reset.getSeconds()+((<%=session.timeout%>+1)*60)); 
 									$('#countdown').countdown('option', {until:timeout_reset});
