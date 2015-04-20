@@ -73,44 +73,42 @@
 			<div class="container-fluid">
 				<h2 class="page-header">Announcement Listing</h2>
 				<div class="row">
-					<form>
-						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">
-							<label for="tblheader" class="control-label">Sort By Header: </label>
-							<select id="tblheader" name="tblheader" autocomplete="off" class="form-control">
-								<option value="title" selected>Title</option>
-								<option value="description">Description</option>
-								<option value="type">Type</option>
-								<option value="created_by">Created By</option>
-								<option value="modified_by">Modified By</option>
-								<option value="startdt">Start Date &amp; Time</option>
-								<option value="finishdt">Finish Date &amp; Time</option>
-								<option value="createddt">Created Date &amp; Time</option>
-								<option value="modifieddt">Modified Date &amp; Time</option>
-							</select>
-						</div>
-						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">
-							<label for="anntype" class="control-label">Announcement Type: </label>
-							<select id="anntype" name="anntype" autocomplete="off" class="form-control">
-								<option value="all" selected>All</option>
-								<option value="important">Important</option>
-								<option value="meeting">Meeting</option>
-								<option value="university">University</option>
-								<option value="volunteer">Volunteer</option>
-								<option value="sports">Sports</option>
-								<option value="other">Other</option>
-							</select>
-						</div>
-						<div style="margin-top:15px;" class="form-group col-sm-4 col-md-3">
-							<label for="tblstat" class="control-label">List By Status: </label>
-							<select id="tblstat" name="tblstat" autocomplete="off" required class="form-control">
-								<option value="all" selected>All</option>
-								<option value="currently_posted">Currently Posted</option>
-								<option value="previously_posted">Previously Posted</option>
-								<option value="verified">Verified</option>
-								<option value="verificatin_reqd">Needs Verification</option>
-							</select>
-						</div>
-					</form>
+					<div style="margin-top:15px;" class="form-group col-sm-4 col-md-4">
+						<label for="tblheader" class="control-label">Sort By Header: </label>
+						<select id="tblheader" name="tblheader" autocomplete="off" class="form-control">
+							<option value="1" selected>Title</option>
+							<option value="2">Description</option>
+							<option value="3">Type</option>
+							<option value="4">Created By</option>
+							<option value="5">Modified By</option>
+							<option value="6">Start Date &amp; Time</option>
+							<option value="7">Finish Date &amp; Time</option>
+							<option value="8">Created Date &amp; Time</option>
+							<option value="9">Modified Date &amp; Time</option>
+						</select>
+					</div>
+					<div style="margin-top:15px;" class="form-group col-sm-4 col-md-4">
+						<label for="anntype" class="control-label">Announcement Type: </label>
+						<select id="anntype" name="anntype" autocomplete="off" class="form-control">
+							<option value="all" selected>All</option>
+							<option value="important">Important</option>
+							<option value="meeting">Meeting</option>
+							<option value="university">University</option>
+							<option value="volunteer">Volunteer</option>
+							<option value="sports">Sports</option>
+							<option value="other">Other</option>
+						</select>
+					</div>
+					<div style="margin-top:15px;" class="form-group col-sm-4 col-md-4">
+						<label for="tblstat" class="control-label">List By Status: </label>
+						<select id="tblstat" name="tblstat" autocomplete="off" required class="form-control">
+							<option value="all" selected>All</option>
+							<option value="currently_posted">Currently Posted</option>
+							<option value="previously_posted">Previously Posted</option>
+							<option value="verified">Verified</option>
+							<option value="verify">Needs Verification</option>
+						</select>
+					</div>
 					<div class="panel-group">
 						<div class="panel panel-default">
 							<div class="panel-heading panel-table">
@@ -126,6 +124,7 @@
 								</table>
 							</div>
 						</div>
+						<div id="tbl-ajax" style="margin-top:5px;" class="panel-group"></div>
 					</div>
 				</div>
 			</div>
@@ -146,45 +145,56 @@
 				<script type="text/javascript">//$(document).on("click keypress submit",function(){var cmd={report:true};/*$.ajax({type:'POST',url:'keepAlive.asp'});*/window.parent.sessionActive.call(cmd);});
 				</script>
 				<script type="text/javascript">
-					/*function adjustHeight(e){
+					function adjustHeight(e){
 						var n=$("#content_container",parent.document),m=e.next().children();
+					 
 						if(m.hasClass('in')){
 							n.height(n.height()-m.height()+10);
 						}else{
 							n.height(n.height()+m.height()-10);
 						}
-					}*/
+					}
 				</script>
 		<!--BootStrap Select Input-->
 				<script type="text/javascript" src="js/bootstrap-combobox.js"></script>
 		<!--Initialize select input fields-->
 				<script type="text/javascript">
-					$(function () {
-						$('#tblheader').combobox();
-						$('#tblheader').prev().children('div').children('input[type*=text]').attr('placeholder','Select Header To Sort By');
-						$('#anntype').combobox();
-						$('#anntype').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Type To Sort By');
-						$('#tblstat').combobox();
-						$('#tblstat').prev().children('div').children('input[type*=text]').attr('placeholder','Select Announcement Status To Sort By');
+					$(function() {
+						var el=[$('#tblheader'),$('#anntype'),$('#tblstat')],elsib=[],elhid=[],
+							pholdtxt=['Header','Announcement Type','Announcement Status'];
+					 
+						for(var i=0;i<3;i++){
+							el[i].combobox();
+							elsib[i]=el[i].prev().children('div').children('input[type*=text]');
+							elhid[i]=el[i].prev().children('input[type*=hidden]');
+							elsib[i].attr('placeholder','Select '+pholdtxt[i]+' To Sort By');
+							elhid[i].on('change',function(){
+								var el=[$('#tblheader'),$('#anntype'),$('#tblstat')],elhid=[];
+								for(var j=0;j<3;j++)
+									elhid[j]=el[j].prev().children('input[type*=hidden]');
+								ajaxAsp(elhid[0].val(),elhid[1].val(),elhid[2].val());
+							});
+						}
 					});
 				</script>
 		<!--AJAX ASP-->
 				<script type="text/javascript">
-					function ajaxAsp(){
+					function ajaxAsp(hval,tval,aval){
 						$.ajax({
 							async: true,
 							url: 'ann_list_ajax.asp',
 							type: 'get',
-							//data: {'action':aval},
+							data: {'header':hval,'type':tval,'action':aval},
 							mimeType: 'application/x-www-form-urlencoded',
 							contentType: false,
 							cache: false,
 							processData: true,
-							success:function (data,textStatus,jqXHR){$('.panel-group').append(data);},
-							error:function (jqXHR,textStatus,errorThrown){$('.panel-group').append(textStatus);}
+							success:function (data,textStatus,jqXHR){$('.panel-group #tbl-ajax').html(data);},
+							error:function (jqXHR,textStatus,errorThrown){$('.panel-group #tbl-ajax').html(textStatus);}
 						});
 					}
-					ajaxAsp();
+					 
+					ajaxAsp('list');
 				</script>
 		<!--Template-->
 				<script type="text/javascript" src="js/HTML_Inspector.js"></script>

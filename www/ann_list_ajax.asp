@@ -14,11 +14,12 @@
 	dim baseURL, strURL
 %><!--#include file="scripts/htmlEncode.asp"-->	
 <%
-	dim objConn, objRs, strQuery, sortOrder, duration, action, actionLink(2), strFuncURL(2), strFuncQuery(2), displayRec, trCls, yy, mm, dd, curDate, curTime, notToday, x, elcls, elid, eldatapar, elhref, cls, i
+	dim objConn, objRs, strQuery, sortOrder, duration, action, stat, actionLink(2), strFuncURL(2), strFuncQuery(2), displayRec, trCls, yy, mm, dd, curDate, curTime, notToday, x, elcls, elid, eldatapar, elhref, cls, i
 	
 	strQuery="SELECT * FROM announcements"
-	sortOrder=request("sortOrder")
+	sortOrder=request("header")
 	action=request("action")
+	stat=request("type")
 	baseURL=mid(baseURL,1,instrrev(request.servervariables("URL"),"/"))
 	strURL=baseURL&"ann_list.asp"
 	
@@ -33,15 +34,19 @@
 	curTime=FormatDateTime(now(),vbshorttime)
 	
 	strFuncURL(0)=baseURL&"ann_add.asp":	strFuncQuery(0)="action=editExisting":	actionLink(0)="Edit"
-	strFuncURL(1)=baseURL&"ann_sub.asp":	strFuncQuery(1)="action=verify":	actionLink(1)="Verify"
-	strFuncURL(2)=baseURL&"ann_sub.asp":	strFuncQuery(2)="action=delete":	actionLink(2)="Remove"
+	strFuncURL(1)=baseURL&"ann_sub.asp":	strFuncQuery(1)="action=verify":		actionLink(1)="Verify"
+	strFuncURL(2)=baseURL&"ann_sub.asp":	strFuncQuery(2)="action=delete":		actionLink(2)="Remove"
 	
-	select case sortOrder 
-		case 1:strQuery=strQuery&" ORDER BY Title"
-		case 2:strQuery=strQuery&" ORDER BY Description"
-		case 3:strQuery=strQuery&" ORDER BY Type"
-		case 4:strQuery=strQuery&" ORDER BY Start_Date"
-		case 5:strQuery=strQuery&" ORDER BY End_Date"
+	select case sortOrder
+		case "1":strQuery=strQuery&" ORDER BY Title"
+		case "2":strQuery=strQuery&" ORDER BY Description"
+		case "3":strQuery=strQuery&" ORDER BY Type"
+		case "4":strQuery=strQuery&" ORDER BY Created_By"
+		case "5":strQuery=strQuery&" ORDER BY Modified_By"
+		case "6":strQuery=strQuery&" ORDER BY Start_Date,Start_Time"
+		case "7":strQuery=strQuery&" ORDER BY End_Date,End_Time"
+		case "8":strQuery=strQuery&" ORDER BY Date_Created"
+		case "9":strQuery=strQuery&" ORDER BY Date_Modified"
 		case else:strQuery=strQuery&" ORDER BY Title"
 	end select  
 	
@@ -54,7 +59,10 @@
 	
 	do while not objRs.eof
 		displayRec=true
-		if action="verify" and objRs("Verified") then
+		if (action="verify" and objRs("Verified")) or _
+			(action="verified" and not objRs("Verified")) or _
+			(action="currently_posted" and not objRs("Cur_Posted")) or _
+			(action="previously_posted" and not objRs("Prev_Posted")) then
 			displayRec=false
 		else
 			notToday=true
@@ -71,6 +79,8 @@
 				end if
 			end if
 		end if
+	
+		if displayRec then if not isnull(stat) and not isempty(stat) and trim(stat)<>"" and trim(stat)<>"all" then if objRs("Type")<>stat then displayRec=false
 	
 		if displayRec then
 			if objRs("Verified") and objRs("Cur_Posted") then
