@@ -159,7 +159,8 @@
 		<!--Content-->
 		<div class="site-wrap">
 			<div class="container-fluid">
-				<div class="row"><!--#include file="includes/nav_top.inc"-->
+				<div class="row">
+					<!--#include file="includes/nav_top.inc"-->
 					<div class="gridster">
 						<ul>
 							<!--Horizontal Content Displays-->
@@ -174,7 +175,9 @@
 										<div class="pull-left col-md-8 ann-post">
 											<div style="font-size:22px" class="hbody"><%=annList(0,1,x)%></div>
 										</div>
-										<div class="pull-right col-md-4 ann-img"><img src="uploads/<%=annList(0,2,x)%>"></div>
+										<div class="pull-right col-md-4 ann-img">
+											<img src="uploads/<%=annList(0,2,x)%>">
+										</div>
 										<%end if%>
 									</li>
 									<%next%>
@@ -191,7 +194,9 @@
 										<div class="pull-left col-md-8 ann-post">
 											<div style="font-size:22px" class="hbody"><%=annList(1,1,x)%></div>
 										</div>
-										<div class="pull-right col-md-4 ann-img"><img src="uploads/<%=annList(1,2,x)%>"></div>
+										<div class="pull-right col-md-4 ann-img">
+											<img src="uploads/<%=annList(1,2,x)%>">
+										</div>
 										<%end if%>
 									</li>
 									<%next%>

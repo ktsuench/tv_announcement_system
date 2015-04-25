@@ -63,7 +63,8 @@
 			
 				if isempty(stat) or isnull(stat) then stat=0
 		%>
-		<!--Header--><!--#include file="includes/nav.inc"-->
+		<!--Header-->
+		<!--#include file="includes/nav.inc"-->
 		<!--#include file="includes/nav_sw.inc"-->
 		<!--#include file="includes/nav_top.inc"-->
 		<!--Content-->
@@ -74,7 +75,11 @@
 						if stat<>0 and instr(referrer,"login.asp")>-1 then
 				%>
 				<div role="alert" class="alert alert-float alert-danger alert-dismissible">
-					<button data-dismiss="alert" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><span>
+					<button data-dismiss="alert" class="close">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<span>
 						<%
 							if errMsg<>"User does not exist." then
 								dim n, strtemp
@@ -82,15 +87,19 @@
 								strtemp=" tries"
 								if n < 2 then strtemp=" try"
 							end if
-						%><strong>Login Failure - <%=errMsg%></strong><br>
+						%>
+						<strong>Login Failure - <%=errMsg%></strong>
+						<br>
 						<%if errMsg<>"User does not exist." then%>You have <%=n&strtemp%> left.
-						<%end if%></span>
+						<%end if%>
+					</span>
 				</div>
 				<%    end if%>
 				<div class="row">
 					<form id="loginfrm" method="post" action="login_val.asp" role="form" class="form-signin center-block">
 						<div class="panel panel-rci">
-							<div class="panel-heading"><img id="crest" src="images/crest.png" width="200" class="center-block">
+							<div class="panel-heading">
+								<img id="crest" src="images/crest.png" width="200" class="center-block">
 								<h2 class="form-signin-heading">RCI Dashboard Login</h2>
 							</div>
 							<div class="panel-body">
@@ -119,7 +128,8 @@
 				<div class="row">
 					<form id="loginfrm" method="post" action="login.asp" encType="multipart/form-data" role="form" class="form-signin center-block">
 						<div class="panel panel-rci">
-							<div class="panel-heading"><img id="crest" src="images/crest.png" width="200" class="center-block">
+							<div class="panel-heading">
+								<img id="crest" src="images/crest.png" width="200" class="center-block">
 								<h2 class="form-signin-heading">RCI Dashboard Login</h2>
 							</div>
 							<div class="panel-body">
@@ -158,7 +168,8 @@
 				<%end if%>
 			</div>
 		</div>
-		<!--Footer--><!--#include file="includes/nav_bottom.inc"--> 
+		<!--Footer-->
+		<!--#include file="includes/nav_bottom.inc"-->
 		<!--Bootstrap core JavaScript-->
 		<!--Placed at the end of the document so the pages load faster-->
 		<%if session("pass_attempts") < 3 then%>

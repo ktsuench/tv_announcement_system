@@ -33,9 +33,9 @@ append css
 		.clock ul{list-style:none;}
 		.date, .clock ul{padding-left:5px;}
 append header
-	<!--#include file="includes/nav.inc"-->
-	<!--#include file="includes/nav_sw.inc"-->
-	<!--#include file="includes/nav_top.inc"-->
+	//#include file="includes/nav.inc"
+	//#include file="includes/nav_sw.inc"
+	//#include file="includes/nav_top.inc"
 append container
 	.row
 		.col-sm-9.col-md-10.main
@@ -44,7 +44,7 @@ append container
 					a#di-toggle.panel-info(data-toggle='collapse',data-parent='.dash-info',href='#dash-info-disp')
 						.panel-heading
 							h3.panel-title Dashboard Information
-					#dash-info-disp.panel-collapse.collapse.in
+					#dash-info-disp.panel-collapse.collapse
 						.panel-body
 							.col-md-4
 								span.
@@ -70,7 +70,7 @@ append container
 			.col-sm-3.col-sm-offset-9.col-md-2.col-md-offset-10.sidebar
 				h2.sub-header Tasks
 prepend footer
-	<!--#include file="includes/nav_bottom.inc"-->
+	//#include file="includes/nav_bottom.inc"
 append footer
 	include ./includes/iframe_resize.inc.jade
 	//Bootstrap Session Timeout
@@ -88,16 +88,18 @@ append footer
 		|	enablePublicMethods: false,
 		|	interval: 32 /*ms*/,
 		|	heightCalculationMethod: 'lowestElement' /*'bodyOffset' | 'bodyScroll' | 'documentElementOffset' | 'documentElementScroll' | 'max' | 'min' | 'grow' | 'lowestElement'*/,
-		|	/*maxHeight: 0,
-		|	maxWidth: 0,
-		|	minHeight: 0,
-		|	minWidth: 0,*/
+		|	//maxHeight: 0,
+		|	//maxWidth: 0,
+		|	minHeight: 500,
+		|	//minWidth: 0,
 		|	scrolling: false,
 		|	sizeHeight: true,
 		|	sizeWidth: false,
 		|	tolerance: 0
 		|});
 	+javascript('js/fullsize.min.js')
+	+js-inline
+		|$('#di-toggle').click();
 	asp.
 		baseURL=request.servervariables("URL")
 

@@ -34,9 +34,9 @@ append aspb1
 	
 			if isempty(stat) or isnull(stat) then stat=0
 append header
-	<!--#include file="includes/nav.inc"-->
-	<!--#include file="includes/nav_sw.inc"-->
-	<!--#include file="includes/nav_top.inc"-->
+	//#include file="includes/nav.inc"
+	//#include file="includes/nav_sw.inc"
+	//#include file="includes/nav_top.inc"
 append content
 	.site-wrap
 		.container-fluid
@@ -117,7 +117,7 @@ append content
 							button.btn.btn-lg.btn-success.btn-block(type='submit',disabled) Sign in
 			asp end if
 append footer
-	<!--#include file="includes/nav_bottom.inc"--> 
+	//#include file="includes/nav_bottom.inc"
 	//Bootstrap core JavaScript
 	//Placed at the end of the document so the pages load faster
 	asp if session("pass_attempts") < 3 then
