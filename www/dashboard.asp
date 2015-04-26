@@ -56,7 +56,8 @@
 			.date, .clock ul{padding-left:5px;}
 		</style>
 		<!--Template-->
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->
+		<!--[if lt IE 9]>
 		<script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 		<!--End Template-->
@@ -75,7 +76,8 @@
 			end if
 		%>
 		<!--End Dashboard Template-->
-		<!--Header--><!--#include file="includes/nav.inc"-->
+		<!--Header-->
+		<!--#include file="includes/nav.inc"-->
 		<!--#include file="includes/nav_sw.inc"-->
 		<!--#include file="includes/nav_top.inc"-->
 		<!--Content-->
@@ -84,17 +86,38 @@
 				<div class="row">
 					<div class="col-sm-9 col-md-10 main">
 						<div class="panel-group dash-info">
-							<div class="panel panel-info"><a id="di-toggle" data-toggle="collapse" data-parent=".dash-info" href="#dash-info-disp" class="panel-info">
+							<div class="panel panel-info">
+								<a id="di-toggle" data-toggle="collapse" data-parent=".dash-info" href="#dash-info-disp" class="panel-info">
 									<div class="panel-heading">
 										<h3 class="panel-title">Dashboard Information</h3>
-									</div></a>
+									</div>
+								</a>
 								<div id="dash-info-disp" class="panel-collapse collapse in">
 									<div class="panel-body">
-										<div class="col-md-4"><span>Welcome to the RCI Announcement System. If there are any questions, comments, or concerns regarding this system, contact your system administrators. Any and all feedback on this system is welcome.</span></div>
+										<div class="col-md-4">
+											<span>Welcome to the RCI Announcement System. If there are any questions, comments, or concerns regarding this system, contact your system administrators. Any and all feedback on this system is welcome.</span>
+										</div>
 										<div class="col-md-8">
-											<div class="col-md-6"><span><strong>Signature:</strong>&nbsp;<%=session("signature")%></span><br><span><strong>Current User:</strong>&nbsp;<%=session("firstname")&"&nbsp;"&session("lastname")%></span><br><span><strong>Email:</strong>&nbsp;<%=session("email")%></span><br><br></div>
-											<div class="col-md-6"><span style="text-transform:capitalize;"><strong>Clearance Level:</strong>&nbsp;<%=session("clearance")%></span><br><span><strong>IP Address:</strong>&nbsp;<%=request.servervariables("REMOTE_ADDR")%></span><br><span><strong>Announcements On Display:</strong>&nbsp;<%=objRS("NAnnPosted")%></span></div>
-											<div class="col-sm-12 col-md-12"><strong>Current Date/Time:</strong><!--#include file="includes/date_clock.inc"--></div>
+											<div class="col-md-6">
+												<span><strong>Signature:</strong>&nbsp;<%=session("signature")%></span>
+												<br>
+												<span><strong>Current User:</strong>&nbsp;<%=session("firstname")&"&nbsp;"&session("lastname")%></span>
+												<br>
+												<span><strong>Email:</strong>&nbsp;<%=session("email")%></span>
+												<br>
+												<br>
+											</div>
+											<div class="col-md-6">
+												<span style="text-transform:capitalize;"><strong>Clearance Level:</strong>&nbsp;<%=session("clearance")%></span>
+												<br>
+												<span><strong>IP Address:</strong>&nbsp;<%=request.servervariables("REMOTE_ADDR")%></span>
+												<br>
+												<span><strong>Announcements On Display:</strong>&nbsp;<%=objRS("NAnnPosted")%></span>
+											</div>
+											<div class="col-sm-12 col-md-12"> 
+												<strong>Current Date/Time:</strong>
+												<!--#include file="includes/date_clock.inc"-->
+											</div>
 										</div>
 									</div>
 								</div>
@@ -110,7 +133,8 @@
 				</div>
 			</div>
 		</div>
-		<!--Footer--><!--#include file="includes/nav_bottom.inc"-->
+		<!--Footer-->
+		<!--#include file="includes/nav_bottom.inc"-->
 		<!--Dashboard Template-->
 		<!--Bootstrap core JavaScript-->
 		<!--Placed at the end of the document so the pages load faster-->

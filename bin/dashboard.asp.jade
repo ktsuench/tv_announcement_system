@@ -33,9 +33,9 @@ append css
 		.clock ul{list-style:none;}
 		.date, .clock ul{padding-left:5px;}
 append header
-	<!--#include file="includes/nav.inc"-->
-	<!--#include file="includes/nav_sw.inc"-->
-	<!--#include file="includes/nav_top.inc"-->
+	//#include file="includes/nav.inc"
+	//#include file="includes/nav_sw.inc"
+	//#include file="includes/nav_top.inc"
 append container
 	.row
 		.col-sm-9.col-md-10.main
@@ -64,13 +64,15 @@ append container
 									span <strong>IP Address:</strong>&nbsp;<%=request.servervariables("REMOTE_ADDR")%>
 									br
 									span <strong>Announcements On Display:</strong>&nbsp;<%=objRS("NAnnPosted")%>
-								.col-sm-12.col-md-12 <strong>Current Date/Time:</strong><!--#include file="includes/date_clock.inc"-->
+								.col-sm-12.col-md-12 
+									strong Current Date/Time:
+									//#include file="includes/date_clock.inc"
 			div
 				iframe#content_container(name='content_container',src='home.asp',scrolling='no',style='width:100%;')
 			.col-sm-3.col-sm-offset-9.col-md-2.col-md-offset-10.sidebar
 				h2.sub-header Tasks
 prepend footer
-	<!--#include file="includes/nav_bottom.inc"-->
+	//#include file="includes/nav_bottom.inc"
 append footer
 	include ./includes/iframe_resize.inc.jade
 	//Bootstrap Session Timeout

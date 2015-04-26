@@ -75,7 +75,8 @@
 			/*.bxsliderv li{padding-bottom:30px;}*/	
 		</style>
 		<!--Template-->
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->
+		<!--[if lt IE 9]>
 		<script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 		<!--End Template-->
@@ -159,7 +160,8 @@
 		<!--Content-->
 		<div class="site-wrap">
 			<div class="container-fluid">
-				<div class="row"><!--#include file="includes/nav_top.inc"-->
+				<div class="row">
+					<!--#include file="includes/nav_top.inc"-->
 					<div class="gridster">
 						<ul>
 							<!--Horizontal Content Displays-->
@@ -174,7 +176,9 @@
 										<div class="pull-left col-md-8 ann-post">
 											<div style="font-size:22px" class="hbody"><%=annList(0,1,x)%></div>
 										</div>
-										<div class="pull-right col-md-4 ann-img"><img src="uploads/<%=annList(0,2,x)%>"></div>
+										<div class="pull-right col-md-4 ann-img">
+											<img src="uploads/<%=annList(0,2,x)%>">
+										</div>
 										<%end if%>
 									</li>
 									<%next%>
@@ -191,7 +195,9 @@
 										<div class="pull-left col-md-8 ann-post">
 											<div style="font-size:22px" class="hbody"><%=annList(1,1,x)%></div>
 										</div>
-										<div class="pull-right col-md-4 ann-img"><img src="uploads/<%=annList(1,2,x)%>"></div>
+										<div class="pull-right col-md-4 ann-img">
+											<img src="uploads/<%=annList(1,2,x)%>">
+										</div>
 										<%end if%>
 									</li>
 									<%next%>
@@ -223,7 +229,8 @@
 							<!--Other Content Displays-->
 							<li data-row="1" data-col="10" data-sizex="3" data-sizey="4" class="grid-obj gridh" id="dt">
 								<div id="weather" class="center-block"></div>
-								<div class="clearfix"></div><!--#include file="includes/date_clock.inc"-->
+								<div class="clearfix"></div>
+								<!--#include file="includes/date_clock.inc"--->
 							</li>
 							<li data-row="4" data-col="10" data-sizex="3" data-sizey="2" class="grid-obj gridh">
 							</li>

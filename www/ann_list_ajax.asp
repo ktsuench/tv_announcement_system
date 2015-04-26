@@ -12,7 +12,8 @@
 	end if
 	
 	dim baseURL, strURL
-%><!--#include file="scripts/htmlEncode.asp"-->	
+%>
+<!--#include file="scripts/htmlEncode.asp"-->
 <%
 	dim objConn, objRs, strQuery, sortOrder, duration, action, stat, actionLink(2), strFuncURL(2), strFuncQuery(2), displayRec, trCls, yy, mm, dd, curDate, curTime, notToday, x, elcls, elid, eldatapar, elhref, cls, i
 	

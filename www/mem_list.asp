@@ -50,7 +50,8 @@
 			.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td{padding-right:0;border-top:0;}
 		</style>
 		<!--Template-->
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->
+		<!--[if lt IE 9]>
 		<script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 		<!--End Template-->
@@ -68,7 +69,8 @@
 				response.redirect(strURL&"login.asp")
 			end if
 		%>
-		<!--End Dashboard Template--><!--#include file="scripts/htmlEncode.asp"-->
+		<!--End Dashboard Template-->
+		<!--#include file="scripts/htmlEncode.asp"//-->
 		<%
 			dim objConn, objRs, strQuery, sortOrder, duration, action, actionLink, strFuncURL, strFuncQuery, memName, isSysAdmin, elcls, elid, eldatapar, elhref
 			
@@ -109,10 +111,18 @@
 							<div class="panel-heading panel-table">
 								<table id="tbl-head" class="table table-hover table-condensed table-responsive">
 									<tr>
-										<th class="col-sm-4 col-md-3"><a href="<%=strURL%>?sortOrder=1&action=<%=action%>">Name</a></th>
-										<th class="col-sm-4 col-md-4"><a href="<%=strURL%>?sortOrder=2&action=<%=action%>">Email</a></th>
-										<th class="col-sm-1 col-md-2"><a href="<%=strURL%>?sortOrder=3&action=<%=action%>">Clearance</a></th>
-										<th class="col-sm-1 col-md-2"><a href="<%=strURL%>?sortOrder=4&action=<%=action%>">Signature</a></th>
+										<th class="col-sm-4 col-md-3">
+											<a href="<%=strURL%>?sortOrder=1&action=<%=action%>">Name</a>
+										</th>
+										<th class="col-sm-4 col-md-4">
+											<a href="<%=strURL%>?sortOrder=2&action=<%=action%>">Email</a>
+										</th>
+										<th class="col-sm-1 col-md-2">
+											<a href="<%=strURL%>?sortOrder=3&action=<%=action%>">Clearance</a>
+										</th>
+										<th class="col-sm-1 col-md-2">
+											<a href="<%=strURL%>?sortOrder=4&action=<%=action%>">Signature</a>
+										</th>
 										<th class="col-sm-1 col-md-1"></th>
 									</tr>
 								</table>
@@ -126,7 +136,8 @@
 							    eldatapar="info-"&objRs("ID")
 							    elhref="info-"&objRs("ID")&"-disp"
 						%>
-						<div class="panel panel-info"><a id="<%=elid%>" data-toggle="collapse" data-parent=".<%=eldatapar%>" href="#<%=elhref%>" onclick="/*adjustHeight($(this));*/" class="panel-info">
+						<div class="panel panel-info">
+							<a id="<%=elid%>" data-toggle="collapse" data-parent=".<%=eldatapar%>" href="#<%=elhref%>" onclick="/*adjustHeight($(this));*/" class="panel-info">
 								<div class="panel-heading panel-table">
 									<table class="table table-condensed table-responsive">
 										<tr>
@@ -156,10 +167,13 @@
 											</td>
 										</tr>
 									</table>
-								</div></a>
+								</div>
+							</a>
 							<div style="padding:0px;" class="panel-body panel-info">
 								<div id="<%=elhref%>" style="padding:0px 20px 0px 20px;" class="panel-info panel-collapse collapse col-sm-12 col-md-12">
-									<div style="margin-top:20px" class="panel-info info-item col-sm-12 col-md-12"><span>Email:&nbsp;</span><%=htmlEntityEncode(objRs("Email"))%></div>
+									<div style="margin-top:20px" class="panel-info info-item col-sm-12 col-md-12">
+										<span>Email:&nbsp;</span><%=htmlEntityEncode(objRs("Email"))%>
+									</div>
 									<div style="margin-bottom:20px" class="panel-info info-item col-sm-6 col-md-6">
 										<%
 											dim lname

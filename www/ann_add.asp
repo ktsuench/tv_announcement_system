@@ -53,7 +53,8 @@
 			#ann_add_frm .form-group{margin-left:0px;margin-right:0px;}
 		</style>
 		<!--Template-->
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries--><!--[if lt IE 9]>
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->
+		<!--[if lt IE 9]>
 		<script type="text/javascript" src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script type="text/javascript" src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 		<!--End Template-->
@@ -71,7 +72,8 @@
 				response.redirect(strURL&"login.asp")
 			end if
 		%>
-		<!--End Dashboard Template--><!--#include file="scripts/htmlEncode.asp"-->
+		<!--End Dashboard Template-->
+		<!--#include file="scripts/htmlEncode.asp"-->
 		<%
 			dim objConn, objRs, strQuery, msub, mdesc, mtype, msdate, mfdate, mstime, mftime, mimg, Q, action
 			
@@ -118,12 +120,18 @@
 							<!--Announcement Title-->
 							<div class="form-group">
 								<label for="subject" class="control-label">Announcement Title</label>
-								<input id="subject" type="text" maxlength="32" name="subject" placeholder="Enter name of sport, council, club, etc.." value="<%if not isempty(msub) and not isnull(msub) then response.write(htmlEntityEncode(msub))%>" autocomplete="off" required class="form-control"><span class="help-block"><span id="title_feedback"></span></span>
+								<input id="subject" type="text" maxlength="32" name="subject" placeholder="Enter name of sport, council, club, etc.." value="<%if not isempty(msub) and not isnull(msub) then response.write(htmlEntityEncode(msub))%>" autocomplete="off" required class="form-control">
+								<span class="help-block">
+									<span id="title_feedback"></span>
+								</span>
 							</div>
 							<!--Announcement Content-->
 							<div class="form-group">
 								<label for="desc" class="control-label">Announcement Content</label>
-								<textarea id="textarea" style="resize:none;" rows="8" cols="30" maxlength="150" name="desc" placeholder="Enter Your Announcement" value="<%if not isempty(mdesc) and not isnull(mdesc) then response.write(htmlEntityEncode(mdesc))%>" autocomplete="off" required class="form-control"><%if not isempty(mdesc) and not isnull(mdesc) then response.write(htmlEntityEncode(mdesc))%></textarea><span class="help-block"><span id="textarea_feedback"></span></span>
+								<textarea id="textarea" style="resize:none;" rows="8" cols="30" maxlength="150" name="desc" placeholder="Enter Your Announcement" value="<%if not isempty(mdesc) and not isnull(mdesc) then response.write(htmlEntityEncode(mdesc))%>" autocomplete="off" required class="form-control"><%if not isempty(mdesc) and not isnull(mdesc) then response.write(htmlEntityEncode(mdesc))%></textarea>
+								<span class="help-block">
+									<span id="textarea_feedback"></span>
+								</span>
 							</div>
 						</div>
 						<!--Right form column-->
@@ -147,11 +155,17 @@
 								<label class="control-label pull-left">Start Date &amp; Time</label>
 								<div class="clearfix"></div>
 								<div id="dsel1" class="input-group date col-sm-6 col-md-6">
-									<input type="text" name="dateStart" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" data-date-format="YYYY/MM/DD" placeholder="____/__/__"/><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									<input type="text" name="dateStart" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" data-date-format="YYYY/MM/DD" placeholder="____/__/__"/>
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
 								</div>
 								<!--Announcement Start Time-->
 								<div id="tsel1" class="input-group date col-sm-6 col-md-6">
-									<input type="text" name="timeStart" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" placeholder="__:__"/><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+									<input type="text" name="timeStart" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" placeholder="__:__"/>
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-time"></span>
+									</span>
 								</div>
 							</div>
 							<!--Announcement Finish Date & Time-->
@@ -160,18 +174,25 @@
 								<label class="control-label pull-left">Finish Date &amp; Time</label>
 								<div class="clearfix"></div>
 								<div id="dsel2" class="input-group date col-sm-6 col-md-6">
-									<input type="text" name="dateFinish" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" data-date-format="YYYY/MM/DD" placeholder="____/__/__"/><span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+									<input type="text" name="dateFinish" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" data-date-format="YYYY/MM/DD" placeholder="____/__/__"/>
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-calendar"></span>
+									</span>
 								</div>
 								<!--Announcement Finish Time-->
 								<div id="tsel2" class="input-group date col-sm-6 col-md-6">
-									<input type="text" name="timeFinish" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" placeholder="__:__"/><span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+									<input type="text" name="timeFinish" value="" readonly="readonly" autocomplete="off" required="required" class="form-control" placeholder="__:__"/>
+									<span class="input-group-addon">
+										<span class="glyphicon glyphicon-time"></span>
+									</span>
 								</div>
 							</div>
 							<!--Image Upload-->
 							<div class="form-group">
 								<label for="img" class="control-label">Upload Image</label>
 								<input id="file-upload" type="file" name="img" accept="image/*" value="<%if not((isempty(mimg) and isnull(mimg)) or trim(mimg)="") then response.write(mimg)%>" class="form-control">
-								<%if not((isempty(mimg) and isnull(mimg)) or trim(mimg)="") then response.write("<input id='file-upload-db' type='hidden' name='img-db' value='"&mimg&"'/>")%><span id="file-upload-err" class="help-block"></span>
+								<%if not((isempty(mimg) and isnull(mimg)) or trim(mimg)="") then response.write("<input id='file-upload-db' type='hidden' name='img-db' value='"&mimg&"'/>")%>
+								<span id="file-upload-err" class="help-block"></span>
 							</div>
 							<!--Form Submission & Cancellation-->
 							<div class="form-group">
@@ -188,7 +209,13 @@
 					</form>
 				</div>
 				<div id="min-dt-lim" role="alert" class="alert alert-float alert-danger alert-dismissible invisible">
-					<button onclick="$(this).parent().addClass('invisible');" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><span><strong>Announcement Submission Error <br /> Must be displayed at least for 1 hour.</strong></span>
+					<button onclick="$(this).parent().addClass('invisible');" class="close">
+						<span aria-hidden="true">&times;</span>
+						<span class="sr-only">Close</span>
+					</button>
+					<span>
+						<strong>Announcement Submission Error <br /> Must be displayed at least for 1 hour.</strong>
+					</span>
 				</div>
 			</div>
 		</div>
