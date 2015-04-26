@@ -1,0 +1,34 @@
+extends ./includes/template.inc.jade
+include ./includes/mixin.inc.jade
+
+prepend head
+	-var cls='body-nav-offcanvas'
+append meta
+	+meta-desc('Riverdale collegiate Institute Dashboard - Page Under Construction')
+append title
+	+page-title('Riverdale collegiate Institute Dashboard - Page Under Construction')
+append css
+	style.
+		body{padding-top:40px; padding-bottom:40px; background-color:#eee;}
+append header
+	//#include file="includes/nav.inc"
+	//#include file="includes/nav_sw.inc"
+	//#include file="includes/nav_top.inc"
+append content
+	.site-wrap
+		.container-fluid
+			include ./includes/page_under_construction.inc.jade
+append footer
+	//#include file="includes/nav_bottom.inc"
+	//Bootstrap core JavaScript
+	//Placed at the end of the document so the pages load faster
+	+javascript('js/jquery-1.10.2.min.js')
+	+javascript('js/bootstrap.min.js')
+	//IE10 viewport hack for Surface/desktop Windows 8 bug
+	+javascript('js/ie10-viewport-bug-workaround.js')
+	//Document Resize
+	+javascript('js/fullsize.min.js')
+	+js-inline
+		|function adjustPlacement(){if($('.jumbotron').height()<(window.innerHeight-$('#header').height()-$('#footer').height())){$('.jumbotron').css('margin-top',window.innerHeight-$('#header').height()-$('#footer').height()-$('.site-wrap').height()/2-parseInt($('.site-wrap').css('padding-top'))/2-$('.jumbotron').height()/2-parseInt($('.jumbotron').css('padding-top'))*2);}}
+		|$(document).ready(adjustPlacement());
+		|$(window).resize(function(){adjustPlacement();$('body').css('height',window.innerHeight-$('#header').height()-$('#footer').height());});
