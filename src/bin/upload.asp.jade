@@ -1,8 +1,0 @@
-extends ./templates/script_template.inc.jade
-
-append body
-	asp.
-		dim upload, count
-		set upload=server.createobject("Persits.Upload") 
-		count=upload.savevirtual("/uploads") 
-		response.write("success")
