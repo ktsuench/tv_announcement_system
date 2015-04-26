@@ -1,0 +1,120 @@
+extends ./templates/dashboard_template.inc.jade
+include ./templates/mixin.inc.jade
+
+prepend footer
+	-var iframedoc=true
+
+append meta
+	+meta-desc('Riverdale Collegiate Institute - Announcement List')
+append title
+	+page-title('Riverdale Collegiate Institute - Announcement List')
+append css
+	//Bootstrap Select Input css
+	+stylesheet('css/bootstrap-combobox.css')
+	style.
+		.annDT{/*width:150px;*/}
+		.btn-edit,.btn-verify{margin-bottom:5px;}
+		.panel-table{padding: 0px 10px 0px 10px;}
+		.panel-table table{margin-bottom:0px;}
+		.info-item{margin-bottom:5px;}
+		.table-condensed>tbody>tr>th,.table-condensed>tbody>tr>td{padding-right:0;}
+append aspb1
+	asp.
+		dim action
+		action=request("action")
+append container
+	h2.page-header Announcement Listing
+	.row
+		.form-group.col-sm-4.col-md-4(style='margin-top:15px;')
+			label.control-label(for='tblheader') Sort By Header: 
+			select#tblheader.form-control(name='tblheader',autocomplete='off')
+				option(value=1,selected) Title
+				option(value=2) Description
+				option(value=3) Type
+				option(value=4) Created By
+				option(value=5) Modified By
+				option(value=6) Start Date &amp; Time
+				option(value=7) Finish Date &amp; Time
+				option(value=8) Created Date &amp; Time
+				option(value=9) Modified Date &amp; Time
+		.form-group.col-sm-4.col-md-4(style='margin-top:15px;')
+			label.control-label(for='anntype') Announcement Type: 
+			select#anntype.form-control(name='anntype',autocomplete='off')
+				option(value='all',selected) All
+				option(value='important') Important
+				option(value='meeting') Meeting
+				option(value='university') University
+				option(value='volunteer') Volunteer
+				option(value='sports') Sports
+				option(value='other') Other
+		.form-group.col-sm-4.col-md-4(style='margin-top:15px;')
+			label.control-label(for='tblstat') List By Status: 
+			select#tblstat.form-control(name='tblstat',autocomplete='off',required)
+				option(value='all',selected) All
+				option(value='currently_posted') Currently Posted
+				option(value='previously_posted') Previously Posted
+				option(value='verified') Verified
+				option(value='verify') Needs Verification
+		.panel-group
+			.panel.panel-default
+				.panel-heading.panel-table
+					table#tbl-head.table.table-hover.table-condensed.table-responsive
+						tr
+							th.col-sm-4.col-md-2 Title
+							th.col-sm-4.col-md-4 Description
+							th.col-sm-1.col-md-1 Type
+							th.col-sm-1.col-md-2 Start Date <wbr />&amp; Time
+							th.col-sm-1.col-md-2 Finish Date <wbr />&amp; Time
+							th.col-sm-1.col-md-1
+			#tbl-ajax.panel-group(style="margin-top:5px;")
+append footer
+	include ./scripts/iframe_resize.inc.jade
+	+js-inline
+		|function adjustHeight(e){
+		|	var n=$("#content_container",parent.document),m=e.next().children();
+		| 
+		|	if(m.hasClass('in')){
+		|		n.height(n.height()-m.height()+10);
+		|	}else{
+		|		n.height(n.height()+m.height()-10);
+		|	}
+		|}
+	//BootStrap Select Input
+	+javascript('js/bootstrap-combobox.js')
+	//Initialize select input fields
+	+js-inline
+		|$(function() {
+		|	var el=[$('#tblheader'),$('#anntype'),$('#tblstat')],elsib=[],elhid=[],
+		|		pholdtxt=['Header','Announcement Type','Announcement Status'];
+		| 
+		|	for(var i=0;i<3;i++){
+		|		el[i].combobox();
+		|		elsib[i]=el[i].prev().children('div').children('input[type*=text]');
+		|		elhid[i]=el[i].prev().children('input[type*=hidden]');
+		|		elsib[i].attr('placeholder','Select '+pholdtxt[i]+' To Sort By');
+		|		elhid[i].on('change',function(){
+		|			var el=[$('#tblheader'),$('#anntype'),$('#tblstat')],elhid=[];
+		|			for(var j=0;j<3;j++)
+		|				elhid[j]=el[j].prev().children('input[type*=hidden]');
+		|			ajaxAsp(elhid[0].val(),elhid[1].val(),elhid[2].val());
+		|		});
+		|	}
+		|});
+	//AJAX ASP
+	+js-inline
+		|function ajaxAsp(hval,tval,aval){
+		|	$.ajax({
+		|		async: true,
+		|		url: 'ann_list_ajax.asp',
+		|		type: 'get',
+		|		data: {'header':hval,'type':tval,'action':aval},
+		|		mimeType: 'application/x-www-form-urlencoded',
+		|		contentType: false,
+		|		cache: false,
+		|		processData: true,
+		|		success:function (data,textStatus,jqXHR){$('.panel-group #tbl-ajax').html(data);},
+		|		error:function (jqXHR,textStatus,errorThrown){$('.panel-group #tbl-ajax').html(textStatus);}
+		|	});
+		|}
+		| 
+		|ajaxAsp('list');

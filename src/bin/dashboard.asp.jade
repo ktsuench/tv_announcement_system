@@ -1,0 +1,127 @@
+extends ./templates/dashboard_template.inc.jade
+include ./templates/mixin.inc.jade
+
+prepend head
+	-var cls='body-nav-offcanvas'
+prepend footer
+	-var iframedoc=false
+
+append meta
+	+meta-desc('Riverdale Collegiate Institute - Announcement Dashboard')
+append title
+	+page-title('Riverdale Collegiate Institute - Announcement Dashboard')
+append asph3
+	asp.
+		dim strSQL, objConn, objRS
+
+		baseURL=request.servervariables("URL")
+
+		session("sessionStart")=now()
+
+		strSQL="SELECT COUNT(Cur_Posted) AS NAnnPosted FROM announcements WHERE Cur_Posted=true AND Prev_Posted=false"
+
+		set objConn=server.createobject("ADODB.Connection")
+		set objRS=server.createobject("ADODB.Recordset")
+
+		objConn.connectionstring="DRIVER={Microsoft Access Driver (*.mdb)};DBQ="&server.mappath("db/rciann.mdb")
+		objConn.open
+		objRS.open strSQL, objConn
+append css
+	style.
+		body{padding-top:50px;}
+		.clock, .clock *{display:inline;}
+		.clock ul{list-style:none;}
+		.date, .clock ul{padding-left:5px;}
+append header
+	//#include file="includes/nav.inc"
+	//#include file="includes/nav_sw.inc"
+	//#include file="includes/nav_top.inc"
+append container
+	.row
+		.col-sm-9.col-md-10.main
+			.panel-group.dash-info
+				.panel.panel-info
+					a#di-toggle.panel-info(data-toggle='collapse',data-parent='.dash-info',href='#dash-info-disp')
+						.panel-heading
+							h3.panel-title Dashboard Information
+					#dash-info-disp.panel-collapse.collapse.in
+						.panel-body
+							.col-md-4
+								span.
+									Welcome to the RCI Announcement System. If there are any questions, comments, or concerns regarding this system, contact your system administrators. Any and all feedback on this system is welcome.
+							.col-md-8
+								.col-md-6
+									span <strong>Signature:</strong>&nbsp;<%=session("signature")%>
+									br
+									span <strong>Current User:</strong>&nbsp;<%=session("firstname")&"&nbsp;"&session("lastname")%>
+									br
+									span <strong>Email:</strong>&nbsp;<%=session("email")%>
+									br
+									br
+								.col-md-6
+									span(style='text-transform:capitalize;') <strong>Clearance Level:</strong>&nbsp;<%=session("clearance")%>
+									br
+									span <strong>IP Address:</strong>&nbsp;<%=request.servervariables("REMOTE_ADDR")%>
+									br
+									span <strong>Announcements On Display:</strong>&nbsp;<%=objRS("NAnnPosted")%>
+								.col-sm-12.col-md-12 
+									strong Current Date/Time:
+									//#include file="includes/date_clock.inc"
+			div
+				iframe#content_container(name='content_container',src='home.asp',scrolling='no',style='width:100%;')
+			.col-sm-3.col-sm-offset-9.col-md-2.col-md-offset-10.sidebar
+				h2.sub-header Tasks
+prepend footer
+	//#include file="includes/nav_bottom.inc"
+append footer
+	include ./scripts/iframe_resize.inc.jade
+	//Bootstrap Session Timeout
+	//+javascript('js/bootstrap-session-timeout.min.js')
+	//Date Clock
+	+javascript('js/date_clock.js')
+	//Initiatation of scripts
+	+js-inline
+		|$('#content_container',parent.document).iFrameResize({
+		|	log: false,
+		|	autoResize: true,
+		|	bodyBackground: '',
+		|	bodyMargin: '',
+		|	checkOrigin: true,
+		|	enablePublicMethods: false,
+		|	interval: 32 /*ms*/,
+		|	heightCalculationMethod: 'lowestElement' /*'bodyOffset' | 'bodyScroll' | 'documentElementOffset' | 'documentElementScroll' | 'max' | 'min' | 'grow' | 'lowestElement'*/,
+		|	/*maxHeight: 0,
+		|	maxWidth: 0,
+		|	minHeight: 0,
+		|	minWidth: 0,*/
+		|	scrolling: false,
+		|	sizeHeight: true,
+		|	sizeWidth: false,
+		|	tolerance: 0
+		|});
+	+javascript('js/fullsize.min.js')
+	asp.
+		baseURL=request.servervariables("URL")
+
+		if instr(baseURL,"announcements.asp")<=0 then
+			if instr(baseURL,"dashboard.asp")>0 then
+	+js-inline
+		|/*$(function(){
+		|	$.sessionTimeout({
+		|		message			: "You have been inactive for 15 minutes. Would you like to stay logged in?",
+		|		logoutUrl		: "login.asp?a=l", 
+		|		redirUrl		: "login.asp?a=l",
+		|		keepAliveUrl	: "keepAlive.asp",*/
+		|		//warnAfter		: 120000,
+		|		//redirAfter	: 140000,
+		|		//min * 60 * 1000
+		|	//});
+		|//});
+	asp.
+		end if
+		end if
+
+		objRS.close
+		objConn.close
+		set objRS=nothing
+		set objConn=nothing

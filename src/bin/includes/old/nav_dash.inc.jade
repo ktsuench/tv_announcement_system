@@ -1,0 +1,54 @@
+//Off Canvas Navigation
+mixin nav-item(href,title)
+	li
+		.panel-group
+			.panel.panel-default
+				a.panel-default(href=href)
+					.panel-heading
+						h4.panel-title #{title}
+mixin nav-item-menu(href,title)
+	li
+		.panel-group.nav-offcanvas-accordion
+			.panel.panel-default
+				a.panel-default(data-toggle='collapse',data-parent='.nav-offcanvas-accordion',href=href)
+					.panel-heading
+						h4.panel-title #{title}
+				block
+mixin nav-item-menu-items(href,title)
+	.panel-body
+		ul.nav.nav-pills.nav-stacked
+			-var n=title.length,i=0
+			while i<n
+				li: a(href=href.length?href[i]:'#',target=target[i]) #{title[i]}
+				-i++
+-var href,target,title,temp,target_temp
+-tar_temp='content_container'
+ul.nav-offcanvas
+	+nav-item-menu('#nav-offcanvas-menu-1','Announcements')
+		#nav-offcanvas-menu-1.panel-collapse.collapse
+			-temp=' Announcements'
+			-href=['ann_add.asp','ann_list.asp?action=list','announcements.asp']
+			-target=[tar_temp,tar_temp,'_blank']
+			-title=['Add'+temp,'List'+temp,'View'+temp]
+			+nav-item-menu-items(href,title)
+	+nav-item-menu('#nav-offcanvas-menu-2','Members')
+		#nav-offcanvas-menu-2.panel-collapse.collapse
+			-temp=' Members'
+			-href=['mem_add.html','mem_list.html']
+			-target=[tar_temp,tar_temp]
+			-title=['Add'+temp,'List'+temp]
+			+nav-item-menu-items(href,title)
+	+nav-item-menu('#nav-offcanvas-menu-3','Profile')
+		#nav-offcanvas-menu-3.panel-collapse.collapse
+			-href=['mem_profile.html','mem_change.html']
+			-target=['content_container','content_container']
+			-title=['View Profile','Change Password']
+			+nav-item-menu-items(href,title)
+	+nav-item-menu('#nav-offcanvas-menu-4','Settings')
+		#nav-offcanvas-menu-4.panel-collapse.collapse
+			-href=[]
+			-target=[tar_temp,tar_temp,tar_temp]
+			-title=['Home','Profiles','Messages']
+			+nav-item-menu-items(href,title)
+	+nav-item('logout.asp','Logout')
+//end Off Canvas Navigation

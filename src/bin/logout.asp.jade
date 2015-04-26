@@ -1,0 +1,13 @@
+extends ./templates/bare_template.inc.jade
+include ./templates/mixin.inc.jade
+
+append meta
+	+meta-desc('Riverdale Collegiate Institute Dashboard - Logout')
+append title
+	+page-title('Riverdale Collegiate Institute Dashboard - Logout')
+append body
+	asp.
+		baseURL=request.servervariables("URL")
+		strURL=mid(baseURL,1,instrrev(baseURL,"/"))
+	+js-inline
+		|window.location.replace('<%=strURL%>login.asp?a=l');
