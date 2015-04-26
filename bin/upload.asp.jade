@@ -1,8 +1,0 @@
-extends ./includes/script_template.inc.jade
-
-append body
-	asp.
-		dim upload, count
-		set upload=server.createobject("Persits.Upload") 
-		count=upload.savevirtual("/kwik_disp/uploads") 
-		response.write("success")
