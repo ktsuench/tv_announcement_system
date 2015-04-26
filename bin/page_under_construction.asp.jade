@@ -11,15 +11,15 @@ append css
 	style.
 		body{padding-top:40px; padding-bottom:40px; background-color:#eee;}
 append header
-	//#include file="includes/nav.inc"
-	//#include file="includes/nav_sw.inc"
-	//#include file="includes/nav_top.inc"
+	<!--#include file="includes/nav.inc"-->
+	<!--#include file="includes/nav_sw.inc"-->
+	<!--#include file="includes/nav_top.inc"-->
 append content
 	.site-wrap
 		.container-fluid
 			include ./includes/page_under_construction.inc.jade
 append footer
-	//#include file="includes/nav_bottom.inc"
+	<!--#include file="includes/nav_bottom.inc"--> 
 	//Bootstrap core JavaScript
 	//Placed at the end of the document so the pages load faster
 	+javascript('js/jquery-1.10.2.min.js')

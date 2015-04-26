@@ -65,8 +65,7 @@
 				response.redirect(strURL&"login.asp")
 			end if
 		%>
-		<!--End Dashboard Template-->
-		<!--#include file="scripts/htmlEncode.asp"-->
+		<!--End Dashboard Template--><!--#include file="scripts/htmlEncode.asp"-->
 		<%
 			dim objConn, objRs, strQuery, memail, mpass, mfn, mln, mlvl, mstat, action
 			
@@ -111,26 +110,17 @@
 							<!--Firstname-->
 							<div class="form-group">
 								<label for="firstname" class="control-label">First Name</label>
-								<input id="firstname" type="text" maxlength="50" name="firstname" placeholder="Enter your first name" value="<%if not isempty(mfn) and not isnull(mfn) then response.write(htmlEntityEncode(mfn))%>" autocomplete="off" required class="form-control">
-								<span class="help-block">
-									<span id="fn_feedback"></span>
-								</span>
+								<input id="firstname" type="text" maxlength="50" name="firstname" placeholder="Enter your first name" value="<%if not isempty(mfn) and not isnull(mfn) then response.write(htmlEntityEncode(mfn))%>" autocomplete="off" required class="form-control"><span class="help-block"><span id="fn_feedback"></span></span>
 							</div>
 							<!--Last Name-->
 							<div class="form-group">
 								<label for="lastname" class="control-label">Last Name</label>
-								<input id="lastname" type="text" maxlength="50" name="lastname" placeholder="Enter your last name" value="<%if not isempty(mln) and not isnull(mln) then response.write(htmlEntityEncode(mln))%>" autocomplete="off" required class="form-control">
-								<span class="help-block">
-									<span id="ln_feedback"></span>
-								</span>
+								<input id="lastname" type="text" maxlength="50" name="lastname" placeholder="Enter your last name" value="<%if not isempty(mln) and not isnull(mln) then response.write(htmlEntityEncode(mln))%>" autocomplete="off" required class="form-control"><span class="help-block"><span id="ln_feedback"></span></span>
 							</div>
 							<!--Status-->
 							<div class="form-group">
 								<label for="status" class="control-label">Status</label>
-								<textarea id="status" style="resize:none;" rows="8" cols="30" maxlength="150" name="status" placeholder="Input your positions/responsibilities and/or activities that you participate in around the school" value="<%if not isempty(mstat) and not isnull(mstat) then response.write(htmlEntityEncode(mstat))%>" autocomplete="off" data-toggle="tooltip" data-placement="auto bottom" title="Examples: PHAASE VP, S.W.A.T. Member, DECA Staff Advisor, Archery Team Coach" class="form-control"><%if not isempty(mstat) and not isnull(mstat) then response.write(htmlEntityEncode(mstat))%></textarea>
-								<span class="help-block">
-									<span id="status_feedback"></span>
-								</span>
+								<textarea id="status" style="resize:none;" rows="8" cols="30" maxlength="150" name="status" placeholder="Input your positions/responsibilities and/or activities that you participate in around the school" value="<%if not isempty(mstat) and not isnull(mstat) then response.write(htmlEntityEncode(mstat))%>" autocomplete="off" data-toggle="tooltip" data-placement="auto bottom" title="Examples: PHAASE VP, S.W.A.T. Member, DECA Staff Advisor, Archery Team Coach" class="form-control"><%if not isempty(mstat) and not isnull(mstat) then response.write(htmlEntityEncode(mstat))%></textarea><span class="help-block"><span id="status_feedback"></span></span>
 							</div>
 						</div>
 						<!--Right form column-->
@@ -181,13 +171,7 @@
 					</form>
 				</div>
 				<div id="pass-err-lim" role="alert" class="alert alert-float alert-danger alert-dismissible invisible">
-					<button onclick="$(this).parent().addClass('invisible');" class="close">
-						<span aria-hidden="true">&times;</span>
-						<span class="sr-only">Close</span>
-					</button>
-					<span>
-						<strong id="pass-err-msg"></strong>
-					</span>
+					<button onclick="$(this).parent().addClass('invisible');" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><span><strong id="pass-err-msg"></strong></span>
 				</div>
 			</div>
 		</div>

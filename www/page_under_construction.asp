@@ -41,8 +41,7 @@
 		<!--End Template-->
 	</head>
 	<body class="body-nav-offcanvas">
-		<!--Header-->
-		<!--#include file="includes/nav.inc"-->
+		<!--Header--><!--#include file="includes/nav.inc"-->
 		<!--#include file="includes/nav_sw.inc"-->
 		<!--#include file="includes/nav_top.inc"-->
 		<!--Content-->
@@ -58,8 +57,7 @@
 				</div>
 			</div>
 		</div>
-		<!--Footer-->
-		<!--#include file="includes/nav_bottom.inc"-->
+		<!--Footer--><!--#include file="includes/nav_bottom.inc"--> 
 		<!--Bootstrap core JavaScript-->
 		<!--Placed at the end of the document so the pages load faster-->
 		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
