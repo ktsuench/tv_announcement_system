@@ -5,9 +5,7 @@ mixin nav-item(href,title)
 				a.panel-default(href=href) 
 					.panel-heading
 						h4.panel-title #{title}
-//Off Canvas Navigation
 ul.nav-offcanvas
 	+nav-item('announcements.asp','View Announcements')
 	+nav-item("javascript:$('#email').val('guest@guest.com');$('#pass').val('123456');$('#loginfrm').submit();",'Demo Dashboard')
 	+nav-item('about.asp','About')
-//end Off Canvas Navigation

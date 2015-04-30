@@ -1,5 +1,4 @@
 
-<!--Off Canvas Navigation-->
 <ul class="nav-offcanvas">
 	<li>
 		<div class="panel-group">
@@ -35,4 +34,3 @@
 		</div>
 	</li>
 </ul>
-<!--end Off Canvas Navigation-->

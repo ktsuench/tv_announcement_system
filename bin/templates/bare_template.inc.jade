@@ -1,37 +1,50 @@
-//Bare Template
-asp '@language=vbscript
-asp 'option explicit
-//End Bare Template
+//-asp '@language=vbscript
+//-asp 'option explicit
 doctype html
-html(lang='en')
+block b4doc
+html(lang='en',style!=html_css)
 	block asp1
 	head
 		block asph1
 		block meta
-			//Template
-			meta(charset='utf-8')
-			meta(http-equiv='X-UA-Compatible',content='IE=edge')
-			meta(name='viewport',content='width=device-width, initial-scale=1')
-			meta(name='author',content='')
-			link(rel='icon',href='images/favicon.ico')
-			//End Template
+			if not_blank
+				meta(charset='utf-8')
+				meta(http-equiv='X-UA-Compatible',content='IE=edge')
+				meta(name='viewport',content='width=device-width, initial-scale=1')
+				meta(name='author',content='')
+				link(rel='icon',href='images/favicon.ico')
 		block asph2
 		block title
 		block head
-			//Template
-			asp.
-				if instr(baseURL,"upload.asp")=-1 then
-					const adLockOptimistic=3
-					const adOpenDynamic=2
-					const adAddNew=16778240
-					const adDelete=16779264
-					const adUpdate=16809984
-					const adUpdateBatch=65536
-				end if
+			if asp_req
+				asp.
+					if instr(baseURL,"upload.asp")=-1 then
+						const adLockOptimistic=3
+						const adOpenDynamic=2
+						const adAddNew=16778240
+						const adDelete=16779264
+						const adUpdate=16809984
+						const adUpdateBatch=65536
+					end if
 
-				dim baseURL, strURL
-			//End Template
+					dim baseURL, strURL
+		block asph3
+		block css
+			if bootstrap_req
+				+stylesheet('css/bootstrap.min.css')
+			if dash_req
+				+stylesheet('css/style.css')
+			if nav_req
+				+stylesheet('css/nav.css')
 	block asp2
-	body(class=cls)
+	body(class=cls,style!=body_css)
 		block body
+		if bare_temp_include && bootstrap_req
+			//Bootstrap core JavaScript
+			//Placed at the end of the document so the pages load faster
+			+javascript('js/jquery-1.10.2.min.js')
+			+javascript('js/bootstrap.min.js')
+		if nav_req
+			+js-inline
+				|$('.nav-offcanvas a#nav-link').on('click',function(){$('#nav-offcanvas-toggle').click()});
 	block asp3

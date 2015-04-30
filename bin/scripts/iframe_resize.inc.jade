@@ -3,8 +3,8 @@ include ../templates/mixin.inc.jade
 //iFrame Resize
 if iframedoc
 	+javascript('js/iframeResizer.contentWindow.min.js')
-	//Bootstrap Session Timeout Event Listener
-	+js-inline
+	//-//Bootstrap Session Timeout Event Listener
+	//-+js-inline
 		|//$(document).on("click keypress submit",function(){var cmd={report:true};/*$.ajax({type:'POST',url:'keepAlive.asp'});*/window.parent.sessionActive.call(cmd);});
 else
 	+javascript('js/iframeResizer.min.js')

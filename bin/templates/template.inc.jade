@@ -2,15 +2,8 @@ extends ./bare_template.inc.jade
 include ./mixin.inc.jade
 
 append head
-	block asph3
-	block css
-		//Template
-		+stylesheet('css/bootstrap.min.css')
-		+stylesheet('css/style.css')
-		//End Template
 	block asph4
 	block js
-	//Template
 	// HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
 
 	<!--[if lt IE 9]>
@@ -18,19 +11,19 @@ append head
 	+javascript('https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
 
 	<![endif]-->
-	//End Template
 	block asph5
 append body
 	block aspb1
-	//Header
+	if not_blank
+		//______________________Header_______________________
 	block header
 	block aspb2
-	//Content
+	if not_blank 
+		//______________________Content______________________
 	block content
 	block aspb3
-	//Footer
+	if not_blank
+		//______________________Footer_______________________
 	block footer
 	block aspb4
-		//Template
-		+javascript('js/HTML_Inspector.js')
-		//End Template
+		//-+javascript('js/HTML_Inspector.js')
