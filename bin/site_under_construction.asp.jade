@@ -1,0 +1,20 @@
+extends ./templates/bare_template.inc.jade
+include ./templates/mixin.inc.jade
+
+prepend b4doc
+	-var bootstrap_req=bare_temp_include=true, html_css=body_css='height:100%;background:#000;'
+append meta
+	+meta-desc('Site Under Construction - Riverdale Collegiate Institute Announcements')
+	link(rel='icon',href='images/favicon.ico')
+append title
+	+page-title('Site Under Construction - Riverdale Collegiate Institute Annoucements')
+append css
+	style.
+		.align-vertical{position:relative;top:50%;transform:translateY(-50%);}
+append body
+	.container-fluid(style!='height:100%;background:#000;')
+		.row(style!='height:100%;')
+			.col-xs-10.col-sm-10.col-md-6.col-xs-push-1.col-sm-push-1.col-md-push-3.align-vertical
+				.jumbotron
+					h1.text-center Site is <br/>currently <wbr/> under <wbr/>construction.
+					p.text-center Please visit back again some time soon, the site will be hopefully finished by then!
