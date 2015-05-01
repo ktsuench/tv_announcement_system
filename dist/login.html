@@ -1,0 +1,119 @@
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="description" content="Dashboard Login - Riverdale Collegiate Institute Announcements">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="">
+		<link rel="icon" href="images/favicon.ico">
+		<title>Dashboard Login - Riverdale Collegiate Institute Announcements</title>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/nav.css">
+		<link rel="stylesheet" type="text/css" href="css/signin.css">
+		<style>.alert-float{bottom:0px; right:10px;}</style>
+	</head>
+	<body class="body-nav-offcanvas">
+		<!--______________________Header_______________________-->
+		<!--Off Canvas Navigation-->
+		<!--Nav Public-->
+		<ul class="nav-offcanvas">
+					<li>
+						<div class="panel-group">
+							<div class="panel panel-default">
+								<a id="nav-link" href="announcements.asp" class="panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">View Announcements</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="panel-group">
+							<div class="panel panel-default">
+								<a id="nav-link" href="login.asp" class="panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">Login</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="panel-group">
+							<div class="panel panel-default">
+								<a id="nav-link" href="page_under_construction.asp" class="panel-default">
+									<div class="panel-heading">
+										<h4 class="panel-title">About</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+					</li>
+		</ul>
+		<!--end Off Canvas Navigation-->
+		<!--Off Canvas Navigation Switch-->
+		<input id="nav-offcanvas-toggle" type="checkbox" class="nav-offcanvas-inverse nav-offcanvas-toggle">
+		<label for="nav-offcanvas-toggle">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</label>
+		<!--end Off Canvas Navigation Switch-->
+		<!--Fixed Top Navigation-->
+		<div id="header" role="navigation" class="navbar navbar-inverse navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<strong class="navbar-brand"></strong>
+				</div>
+			</div>
+		</div>
+		<!--end Fixed Top Navigation-->
+		<!--______________________Content______________________-->
+		<div class="site-wrap">
+			<div class="container-fluid">
+				<div class="row">
+					<form id="loginfrm" method="post" action="login_val.asp" role="form" class="form-signin center-block">
+						<div class="panel panel-rci">
+							<div class="panel-heading">
+								<img id="crest" src="images/crest.png" width="200" class="center-block">
+								<h2 class="text-center">Riverdale Collegiate<br/>Institute</h2>
+							</div>
+							<div id="body-heading">
+								<h2 class="text-center">Dashboard Login</h2>
+							</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label for="email" style="margin:0;" class="h4">Email Address</label>
+									<input id="email" type="email" name="email" placeholder="someone@example.com" required autofocus autocomplete="off" class="form-control input-md">
+								</div>
+								<div class="form-group">
+									<label for="pass" style="margin:0;" class="h4">Password</label>
+									<input id="pass" type="password" name="password" placeholder="password" required autocomplete="off" class="form-control input-md">
+								</div>
+							</div>
+							<div class="panel-footer">
+								<button type="submit" class="btn btn-lg btn-success btn-block">Sign in</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!--______________________Footer_______________________-->
+		<!--Nav Footer-->
+		<div id="footer" class="navbar navbar-inverse navbar-fixed-bottom">
+		</div>
+		<!--end Nav Footer-->
+		<!--Bootstrap core JavaScript-->
+		<!--Placed at the end of the document so the pages load faster-->
+		<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<!--IE10 viewport hack for Surface/desktop Windows 8 bug-->
+		<script type="text/javascript" src="js/ie10-viewport-bug-workaround.js"></script>
+		<script type="text/javascript">$('.nav-offcanvas a#nav-link').on('click',function(){$('#nav-offcanvas-toggle').click()});</script>
+	</body>
+</html>
