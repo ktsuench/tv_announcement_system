@@ -1,16 +1,13 @@
-extends ./templates/bare_template.inc.jade
+extends ./templates/template.inc.jade
 include ./templates/mixin.inc.jade
 
 append meta
 	+meta-desc('Redirect')
 append title
 	+page-title('Redirect')
-append body
+append aspb1
 	asp.
-		dim baseURL, strURL
-
 		baseURL=request.servervariables("URL")
 		strURL=mid(baseURL,1,instrrev(baseURL,"/"))
 	
-		'response.redirect(strURL&"login.asp")
-		response.redirect(strURL&"site_under_construction.asp")
+		response.redirect(strURL&"login.asp") 
