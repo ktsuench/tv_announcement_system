@@ -1,4 +1,4 @@
 # tv_announcement_system
-Still in development.
 
-# Will update in the future to make this project available for public use.
+This version of the projecct has been dropped in favour of a new approach and a better manageable system.
+Visit the improved version over at [real_update](https://github.com/ktsuench/real_update.git "Real Update")
